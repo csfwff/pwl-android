@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/containFl"
+    android:layout_height="match_parent"
+    tools:context=".ui.LoginActivity">
+    <ImageView
+        android:layout_width="match_parent"
+        android:scaleType="centerCrop"
+        android:id="@+id/bgImg"
+        android:adjustViewBounds="true"
+        android:layout_height="match_parent"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="48dp"
+        android:paddingRight="48dp"
+        android:gravity="center_horizontal"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="96dp"
+            android:layout_marginTop="96dp"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/ic_launcher"
+            android:layout_marginBottom="64dp"
+            android:layout_height="96dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            app:boxBackgroundMode="outline"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:inputType="text"
+                android:lines="1"
+                android:digits="1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM@."
+                android:hint="@string/hint_user_name"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            app:boxBackgroundMode="outline"
+            android:layout_marginTop="18dp"
+            app:passwordToggleEnabled="true"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:inputType="textPassword"
+                android:lines="1"
+                android:hint="@string/hint_pwd"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+            android:layout_width="match_parent"
+            android:layout_marginTop="18dp"
+            android:text="@string/btn_login"
+            android:theme="@style/PwlButton"
+            android:textColor="@color/white"
+            android:layout_height="56dp"/>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</FrameLayout>
