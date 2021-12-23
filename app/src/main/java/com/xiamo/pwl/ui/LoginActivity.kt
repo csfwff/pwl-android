@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.gyf.immersionbar.ImmersionBar
 import com.xiamo.pwl.R
+import com.xiamo.pwl.common.API_KEY
 import com.xiamo.pwl.util.FastBlurUtil
+import com.xiamo.pwl.util.SharedPreferencesUtils
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
+    private val preferences by lazy { SharedPreferencesUtils(this) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -19,6 +22,7 @@ class LoginActivity : AppCompatActivity() {
         val blurBmp = FastBlurUtil.toBlur(bgBmp,10)
         bgImg.setImageBitmap(blurBmp)
 
+        API_KEY = preferences.apiKey!!
 
     }
 }
