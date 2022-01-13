@@ -7,5 +7,9 @@
 
     <string name="btn_login">登录</string>
 
+    <string name="toast_net_err">你小子断网了吧……</string>
+    <string name="toast_user">你得告诉我用户名……</string>
+    <string name="toast_pwd">没密码我怎么登的上去嘛……</string>
+
 
 </resources>
