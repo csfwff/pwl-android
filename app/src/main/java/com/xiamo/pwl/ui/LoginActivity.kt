@@ -1,6 +1,7 @@
 package com.xiamo.pwl.ui
 
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -48,7 +49,10 @@ class LoginActivity : AppCompatActivity() {
 
         loginBtn.startAnimation()
         RequestUtil.getInstance().login(this,userName,password,{
-            loginBtn.doneLoadingAnimation(Color.parseColor("#fff000"),BitmapFactory.decodeResource(resources,R.mipmap.ic_launcher))
+            loginBtn.doneLoadingAnimation(Color.parseColor("#3b3e43"),BitmapFactory.decodeResource(resources,R.mipmap.ic_launcher))
+            API_KEY = it
+            startActivity(Intent(this,MainActivity::class.java))
+            finish()
         },{
             toast(it)
             loginBtn.revertAnimation()
