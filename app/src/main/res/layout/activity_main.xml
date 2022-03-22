@@ -4,8 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:id="@+id/mailLl"
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="@dimen/_8dp"
+        android:background="@color/main"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/_40dp"
+            android:id="@+id/headImg"
+            android:src="@mipmap/ic_launcher"
+            android:layout_height="@dimen/_40dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="聊天室"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="@dimen/_20sp"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+            android:layout_width="wrap_content"
+            android:text="@string/btn_send"
+            android:theme="@style/PwlButton"
+            android:id="@+id/sendBtn"
+            android:textColor="@color/white"
+            android:layout_height="56dp"/>
+
+    </LinearLayout>
+
+
+
+
+
 
 
 

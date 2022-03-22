@@ -6,6 +6,7 @@
     <string name="hint_pwd">密码</string>
 
     <string name="btn_login">登录</string>
+    <string name="btn_send">biu~</string>
 
     <string name="toast_net_err">你小子断网了吧……</string>
     <string name="toast_user">你得告诉我用户名……</string>
