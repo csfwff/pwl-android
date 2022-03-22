@@ -28,6 +28,10 @@ class LoginActivity : AppCompatActivity() {
         bgImg.setImageBitmap(blurBmp)
 
         API_KEY = preferences.apiKey!!
+        if(API_KEY.isNullOrEmpty()){
+            startActivity(Intent(this,MainActivity::class.java))
+            finish()
+        }
 
         loginBtn.onClick {
             login()

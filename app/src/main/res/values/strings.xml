@@ -11,6 +11,9 @@
     <string name="toast_net_err">你小子断网了吧……</string>
     <string name="toast_user">你得告诉我用户名……</string>
     <string name="toast_pwd">没密码我怎么登的上去嘛……</string>
+    <string name="toast_connect_success">连接成功</string>
+    <string name="toast_connect_fail">连接失败</string>
+    <string name="toast_reconnect">正在重连</string>
 
 
 </resources>
