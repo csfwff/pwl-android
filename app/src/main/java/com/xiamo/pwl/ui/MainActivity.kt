@@ -63,6 +63,7 @@ class MainActivity : BaseActivity() {
         msgRv.layoutManager = LinearLayoutManager(this)
         chatMsgAdapter = ChatMsgAdapter(msgList)
         msgRv.adapter = chatMsgAdapter
+        chatMsgAdapter?.initMarkdown()
     }
 
     fun initWs(){
