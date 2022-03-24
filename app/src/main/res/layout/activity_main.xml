@@ -34,6 +34,13 @@
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:layout_height="0dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:src="@mipmap/main_bg"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:id="@+id/mainBg"
+            android:layout_height="match_parent"/>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:id="@+id/msgRv"
@@ -47,7 +54,11 @@
         android:layout_height="wrap_content">
         <EditText
             android:layout_width="0dp"
+            android:id="@+id/contentEt"
             android:layout_weight="1"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:hint="@string/toast_say_something"
             android:layout_height="wrap_content"/>
         <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:layout_width="wrap_content"
@@ -56,6 +67,12 @@
             android:id="@+id/sendBtn"
             android:textColor="@color/white"
             android:layout_height="56dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     </LinearLayout>
 

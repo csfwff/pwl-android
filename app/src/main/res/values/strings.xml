@@ -14,6 +14,7 @@
     <string name="toast_connect_success">连接成功</string>
     <string name="toast_connect_fail">连接失败</string>
     <string name="toast_reconnect">正在重连</string>
+    <string name="toast_say_something">说点什么吧~</string>
 
 
 </resources>

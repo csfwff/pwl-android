@@ -23,12 +23,12 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         ImmersionBar.with(this).init()
-        val bgBmp = BitmapFactory.decodeResource(resources,R.mipmap.login_bg)
+        val bgBmp = BitmapFactory.decodeResource(resources,R.mipmap.main_bg)
         val blurBmp = FastBlurUtil.toBlur(bgBmp,10)
         bgImg.setImageBitmap(blurBmp)
 
         API_KEY = preferences.apiKey!!
-        if(API_KEY.isNullOrEmpty()){
+        if(!API_KEY.isNullOrEmpty()){
             startActivity(Intent(this,MainActivity::class.java))
             finish()
         }
@@ -54,6 +54,7 @@ class LoginActivity : AppCompatActivity() {
         loginBtn.startAnimation()
         RequestUtil.getInstance().login(this,userName,password,{
             loginBtn.doneLoadingAnimation(Color.parseColor("#3b3e43"),BitmapFactory.decodeResource(resources,R.mipmap.ic_launcher))
+           preferences.apiKey=it
             API_KEY = it
             startActivity(Intent(this,MainActivity::class.java))
             finish()

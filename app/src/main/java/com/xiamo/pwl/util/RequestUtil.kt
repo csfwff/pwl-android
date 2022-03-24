@@ -8,8 +8,10 @@ import com.lzy.okgo.callback.StringCallback
 import com.lzy.okgo.model.Response
 import com.xiamo.pwl.R
 import com.xiamo.pwl.bean.BaseBean
+import com.xiamo.pwl.common.API_KEY
 import com.xiamo.pwl.common.BASE_URL
 import com.xiamo.pwl.common.URL_GET_KEY
+import com.xiamo.pwl.common.URL_SEND_MSG
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
@@ -49,6 +51,33 @@ class RequestUtil private constructor() {
                     val baseBean = gson.fromJson(response?.body(), BaseBean::class.java)
                     if(baseBean.code==0){
                         callback?.invoke(baseBean.Key!!)
+                    }else{
+                        errCallback?.invoke(baseBean.msg+"")
+                    }
+                }
+                override fun onError(response: Response<String>?) {
+                    super.onError(response)
+                    errCallback?.invoke(context.getString(R.string.toast_net_err))
+                }
+            })
+    }
+
+    fun sendMsg(
+        context: Context,
+        content:String,
+        callback: (() -> Unit)? = null,
+        errCallback: ((String) -> Unit)? = null
+    ){
+        var params = HashMap<String,String>()
+        params["apiKey"] = API_KEY
+        params["content"] = content
+        OkGo.post<String>(BASE_URL + URL_SEND_MSG)
+            .upJson(gson.toJson(params))
+            .execute(object : StringCallback() {
+                override fun onSuccess(response: Response<String>?) {
+                    val baseBean = gson.fromJson(response?.body(), BaseBean::class.java)
+                    if(baseBean.code==0){
+                        callback?.invoke()
                     }else{
                         errCallback?.invoke(baseBean.msg+"")
                     }

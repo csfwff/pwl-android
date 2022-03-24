@@ -2,13 +2,20 @@ package com.xiamo.pwl.ui
 
 
 import android.graphics.drawable.Drawable
+import android.util.Log
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.gif.GifDrawable
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.xiamo.pwl.R
 import com.xiamo.pwl.bean.ChatMessage
 import com.xiamo.pwl.common.*
+import com.xiamo.pwl.plugin.GifGlideStore
 import io.noties.markwon.Markwon
 import io.noties.markwon.image.AsyncDrawable
 import io.noties.markwon.image.glide.GlideImagesPlugin
@@ -42,14 +49,25 @@ class ChatMsgAdapter(msgList: MutableList<ChatMessage>): BaseMultiItemQuickAdapt
                 }
 
             }))
+            .usePlugin(GlideImagesPlugin.create( GifGlideStore(Glide.with(context))))
             .build()
     }
 
     override fun convert(holder: BaseViewHolder, item: ChatMessage) {
        when(holder.itemViewType){
            MSG_TYPE_MSG->{
-               Glide.with(context).load(item.userAvatarURL).into(holder.getView(R.id.headImg))
-               //holder.setText(R.id.msgTv,item.md)
+               if(item.userAvatarURL!!.endsWith("gif")){
+                   Glide.with(PwlApplication.instance!!.baseContext).asGif().load(item.userAvatarURL).into(holder.getView(R.id.headImg))
+               }else{
+                   Glide.with(context).load(item.userAvatarURL).into(holder.getView(R.id.headImg))
+               }
+                if(item.userNickname.isNullOrBlank()){
+                    holder.setText(R.id.userTv, item.userName)
+                }else{
+                    holder.setText(R.id.userTv,"${item.userNickname}(${item.userName})")
+                }
+
+               holder.setText(R.id.timeTv,item.time)
                //holder.setText(R.id.msgTv, Html.fromHtml(item.content,Html.FROM_HTML_MODE_COMPACT))
                markdown?.setMarkdown(holder.getView(R.id.msgTv),item.md!!)
            }

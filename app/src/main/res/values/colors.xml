@@ -10,4 +10,9 @@
 
     <color name="main">#3b3e43</color>
     <color name="main_status">#3b3e43</color>
+
+    <color name="tv_3">#333333</color>
+    <color name="tv_6">#666666</color>
+    <color name="tv_9">#999999</color>
+    <color name="tv_c">#cccccc</color>
 </resources>

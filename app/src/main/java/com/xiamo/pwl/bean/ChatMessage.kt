@@ -22,12 +22,14 @@ class ChatMessage : MultiItemEntity {
     var oId:String?=null
     var got:String?=null
     var users:List<User>?=null
+    var redPackMsg:RedPackMsg?=null
     override val itemType: Int
         get() = when(type){
             "msg"->MSG_TYPE_MSG
             "online"->MSG_TYPE_ONLINE
             "revoke"->MSG_TYPE_REVOKE
-            "redPacketStatus"->MSG_TYPE_REDPACK
+            "redPacket"->MSG_TYPE_REDPACK
+            "redPacketStatus"-> MSG_TYPE_REDPACK_STATUS
             else->MSG_TYPE_DEFAULT
         }
 }
@@ -47,5 +49,5 @@ class RedPackMsg{
     var count:String?=null
     var type:String?=null
     var got:String?=null
-    var who:String?=null
+    var who:List<String>?=null
 }
