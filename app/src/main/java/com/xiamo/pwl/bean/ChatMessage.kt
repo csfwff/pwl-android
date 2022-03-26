@@ -30,6 +30,8 @@ class ChatMessage : MultiItemEntity {
             "revoke"->MSG_TYPE_REVOKE
             "redPacket"->MSG_TYPE_REDPACK
             "redPacketStatus"-> MSG_TYPE_REDPACK_STATUS
+            "msgMine"-> MSG_TYPE_MSG_MINE
+            "redPacketMine"-> MSG_TYPE_REDPACK_MINE
             else->MSG_TYPE_DEFAULT
         }
 }

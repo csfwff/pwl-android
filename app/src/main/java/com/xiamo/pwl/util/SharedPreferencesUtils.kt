@@ -11,6 +11,7 @@ open class SharedPreferencesUtils(context: Context) {
     private val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     var apiKey by SharedPreferenceDelegates.string(defaultValue = "")
+    var userName by SharedPreferenceDelegates.string(defaultValue = "")
 
     private object SharedPreferenceDelegates {
 

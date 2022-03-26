@@ -15,4 +15,7 @@
     <color name="tv_6">#666666</color>
     <color name="tv_9">#999999</color>
     <color name="tv_c">#cccccc</color>
+
+    <color name="msg_green">#12cc00</color>
+    <color name="msg_redpack">#fecd41</color>
 </resources>

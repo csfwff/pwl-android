@@ -15,15 +15,12 @@ import com.google.gson.Gson
 import com.gyf.immersionbar.ktx.immersionBar
 import com.mikepenz.materialdrawer.Drawer
 import com.xiamo.pwl.R
-import com.xiamo.pwl.common.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import com.rabtman.wsmanager.WsManager
 import com.rabtman.wsmanager.listener.WsStatusListener
 import com.xiamo.pwl.bean.ChatMessage
 import com.xiamo.pwl.bean.RedPackMsg
-import com.xiamo.pwl.common.API_KEY
-import com.xiamo.pwl.common.BASE_WSS_URL
-import com.xiamo.pwl.common.URL_CHAT_ROOM
+import com.xiamo.pwl.common.*
 import com.xiamo.pwl.util.FastBlurUtil
 import com.xiamo.pwl.util.RequestUtil
 import kotlinx.android.synthetic.main.activity_login.*
@@ -160,21 +157,20 @@ class MainActivity : BaseActivity() {
 
     fun addMsg(msg: ChatMessage){
         if(msg.md!=null){
-            chatMsgAdapter?.addData(msg)
-            var lastPos = linearLayoutManager?.findLastVisibleItemPosition()
-            if(lastPos!=null){
-                if(lastPos>=(msgList.size-2)){
-                    Handler().postDelayed({
-                        msgRv.scrollToPosition(msgList.size-1)
-                    },500)
-
-                }
+            if(msg.userName== USERNAME){
+                msg.type="msgMine"
             }
+            chatMsgAdapter?.addData(msg)
         }else{
             var redpack = gson.fromJson(msg.content,RedPackMsg::class.java)
             msg.redPackMsg = redpack
             msg.type = "redPacket"
+            if(msg.userName== USERNAME){
+                msg.type="redPacketMine"
+            }
+            chatMsgAdapter?.addData(msg)
         }
+        scrollBottom()
     }
 
     fun revokeMsg(msg: ChatMessage){
@@ -182,6 +178,18 @@ class MainActivity : BaseActivity() {
             it.oId == msg.oId
         }
         chatMsgAdapter?.notifyDataSetChanged()
+    }
+
+
+    fun scrollBottom(){
+        var lastPos = linearLayoutManager?.findLastVisibleItemPosition()
+        if(lastPos!=null){
+            if(lastPos>=(msgList.size-2)){
+                Handler().postDelayed({
+                    msgRv.scrollToPosition(msgList.size-1)
+                },1000)
+            }
+        }
     }
 
 

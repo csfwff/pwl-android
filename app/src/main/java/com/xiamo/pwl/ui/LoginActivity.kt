@@ -11,6 +11,7 @@ import com.ayvytr.ktx.ui.onClick
 import com.gyf.immersionbar.ImmersionBar
 import com.xiamo.pwl.R
 import com.xiamo.pwl.common.API_KEY
+import com.xiamo.pwl.common.USERNAME
 import com.xiamo.pwl.util.FastBlurUtil
 import com.xiamo.pwl.util.RequestUtil
 import com.xiamo.pwl.util.SharedPreferencesUtils
@@ -29,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
 
         API_KEY = preferences.apiKey!!
         if(!API_KEY.isNullOrEmpty()){
+            USERNAME = preferences.userName!!
             startActivity(Intent(this,MainActivity::class.java))
             finish()
         }
@@ -56,6 +58,8 @@ class LoginActivity : AppCompatActivity() {
             loginBtn.doneLoadingAnimation(Color.parseColor("#3b3e43"),BitmapFactory.decodeResource(resources,R.mipmap.ic_launcher))
            preferences.apiKey=it
             API_KEY = it
+            preferences.userName = userName
+            USERNAME = userName
             startActivity(Intent(this,MainActivity::class.java))
             finish()
         },{

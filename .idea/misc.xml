@@ -4,10 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/github/pwl/app/src/main/res/drawable/bg_msg.xml" value="0.2765625" />
+        <entry key="..\:/github/pwl/app/src/main/res/drawable/bg_msg_mine.xml" value="0.38229166666666664" />
+        <entry key="..\:/github/pwl/app/src/main/res/drawable/bg_msg_redpack.xml" value="0.38229166666666664" />
+        <entry key="..\:/github/pwl/app/src/main/res/drawable/bg_msg_redpack_mine.xml" value="0.21354166666666666" />
+        <entry key="..\:/github/pwl/app/src/main/res/drawable/bg_redpack_type.xml" value="0.38229166666666664" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/activity_login.xml" value="0.36614583333333334" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/item_head.xml" value="0.36614583333333334" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/item_message.xml" value="0.36614583333333334" />
+        <entry key="..\:/github/pwl/app/src/main/res/layout/item_message_mine.xml" value="0.36614583333333334" />
+        <entry key="..\:/github/pwl/app/src/main/res/layout/item_msg_redpack.xml" value="0.36614583333333334" />
+        <entry key="..\:/github/pwl/app/src/main/res/layout/item_msg_redpack_mine.xml" value="0.19739583333333333" />
       </map>
     </option>
   </component>
