@@ -4,9 +4,14 @@
 
     <string name="hint_user_name">用户名/邮箱</string>
     <string name="hint_pwd">密码</string>
+    <string name="hint_redpack_point">总共塞多少积分</string>
+    <string name="hint_redpack_point_1">一个包塞多少积分</string>
+    <string name="hint_redpack_num">分几个包来着？</string>
+    <string name="hint_redpack_info">红包上写点啥吧</string>
 
     <string name="btn_login">登录</string>
     <string name="btn_send">biu~</string>
+    <string name="btn_send_redpack">千金散尽~</string>
 
     <string name="toast_net_err">你小子断网了吧……</string>
     <string name="toast_user">你得告诉我用户名……</string>
@@ -16,5 +21,11 @@
     <string name="toast_reconnect">正在重连</string>
     <string name="toast_say_something">说点什么吧~</string>
 
+    <string name="info_send_redpack">发红包</string>
+    <string name="info_cancel_redpack">穷，算了吧</string>
+
+    <string name="finger_scissors">✌</string>
+    <string name="finger_stone">✊</string>
+    <string name="finger_cloth">🖐</string>
 
 </resources>

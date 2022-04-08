@@ -71,6 +71,8 @@ dependencies {
     implementation 'com.gyf.immersionbar:immersionbar-ktx:3.0.0'
     implementation 'co.zsmb:materialdrawer-kt:3.0.0'
     implementation 'com.rabtman.wsmanager:wsmanager:1.0.2'
+    implementation 'io.github.h07000223:flycoTabLayout:3.0.0'
+    implementation 'io.github.razerdp:BasePopup:3.1.8'
 
     final def markwon_version = '4.6.2'
 

@@ -7,9 +7,12 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import co.zsmb.materialdrawerkt.builders.drawer
 import com.ayvytr.ktx.context.toast
+import com.ayvytr.ktx.ui.isVisible
 import com.ayvytr.ktx.ui.onClick
 import com.google.gson.Gson
 import com.gyf.immersionbar.ktx.immersionBar
@@ -20,6 +23,7 @@ import com.rabtman.wsmanager.WsManager
 import com.rabtman.wsmanager.listener.WsStatusListener
 import com.xiamo.pwl.bean.ChatMessage
 import com.xiamo.pwl.bean.RedPackMsg
+import com.xiamo.pwl.bean.User
 import com.xiamo.pwl.common.*
 import com.xiamo.pwl.util.FastBlurUtil
 import com.xiamo.pwl.util.RequestUtil
@@ -39,6 +43,10 @@ class MainActivity : BaseActivity() {
     var chatMsgAdapter :ChatMsgAdapter?=null
     var gson = Gson()
     var linearLayoutManager:LinearLayoutManager?=null
+
+    var sendRedpackPop:SendRedpackPop?=null
+    var userAdapter:UserAdapter?=null
+    var userList = mutableListOf<User>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,13 +71,8 @@ class MainActivity : BaseActivity() {
 
         initAdapter()
         initWs()
+        initClicks()
 
-        headImg.onClick {
-            drawer?.openDrawer()
-        }
-        sendBtn.onClick {
-            sendMsg()
-        }
 
     }
 
@@ -94,6 +97,28 @@ class MainActivity : BaseActivity() {
 
     }
 
+    fun initClicks(){
+        headImg.onClick {
+            drawer?.openDrawer()
+        }
+
+        titleTv.onClick {
+            userRv.visibility = if(userRv.isVisible() ) View.GONE else View.VISIBLE
+        }
+
+
+        sendBtn.onClick {
+            sendMsg()
+        }
+
+        redpackImg.onClick {
+            if(sendRedpackPop==null){
+                sendRedpackPop = SendRedpackPop(this)
+            }
+            sendRedpackPop?.showPopupWindow()
+        }
+    }
+
 
     fun initAdapter(){
         linearLayoutManager=  LinearLayoutManager(this)
@@ -101,6 +126,11 @@ class MainActivity : BaseActivity() {
         chatMsgAdapter = ChatMsgAdapter(msgList)
         msgRv.adapter = chatMsgAdapter
         chatMsgAdapter?.initMarkdown()
+
+        userRv.layoutManager  = LinearLayoutManager(this,RecyclerView.HORIZONTAL,false)
+        userAdapter = UserAdapter(userList,false)
+        userRv.adapter = userAdapter
+
     }
 
     private fun initWs(){
@@ -122,6 +152,7 @@ class MainActivity : BaseActivity() {
                 when(msg.type){
                     "msg"->addMsg(msg)
                     "revoke"->revokeMsg(msg)
+                    "online"->dealOnline(msg)
                 }
 
             }
@@ -155,6 +186,10 @@ class MainActivity : BaseActivity() {
         })
     }
 
+    /**
+     * 添加消息到列表
+     * @param msg ChatMessage
+     */
     fun addMsg(msg: ChatMessage){
         if(msg.md!=null){
             if(msg.userName== USERNAME){
@@ -173,6 +208,10 @@ class MainActivity : BaseActivity() {
         scrollBottom()
     }
 
+    /**
+     * 撤回消息
+     * @param msg ChatMessage
+     */
     fun revokeMsg(msg: ChatMessage){
         msgList.removeIf {
             it.oId == msg.oId
@@ -180,7 +219,9 @@ class MainActivity : BaseActivity() {
         chatMsgAdapter?.notifyDataSetChanged()
     }
 
-
+    /**
+     * 滚动到底部
+     */
     fun scrollBottom(){
         var lastPos = linearLayoutManager?.findLastVisibleItemPosition()
         if(lastPos!=null){
@@ -190,6 +231,12 @@ class MainActivity : BaseActivity() {
                 },1000)
             }
         }
+    }
+
+    fun dealOnline(msg: ChatMessage){
+        titleTv.text = "聊天室(${msg.onlineChatCnt})"
+        userAdapter?.setNewInstance(msg.users as MutableList<User>?)
+        discussTv.text = "#${msg.discussing}#"
     }
 
 

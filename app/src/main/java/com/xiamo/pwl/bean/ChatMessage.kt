@@ -40,6 +40,7 @@ class User{
     var userAvatarURL:String?=null
     var userName:String?=null
     var homePage:String?=null
+    var selected = false
 }
 
 class RedPackMsg{

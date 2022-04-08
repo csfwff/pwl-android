@@ -16,6 +16,10 @@
     <color name="tv_9">#999999</color>
     <color name="tv_c">#cccccc</color>
 
+    <color name="half_transport">#88000000</color>
+    <color name="blue_discuss">#1A88FF</color>
+
     <color name="msg_green">#12cc00</color>
     <color name="msg_redpack">#fecd41</color>
+    <color name="msg_redpack_sel">#CC9908</color>
 </resources>

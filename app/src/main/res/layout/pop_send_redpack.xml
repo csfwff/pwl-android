@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_48dp"
+        android:layout_marginRight="@dimen/_48dp"
+        android:background="@drawable/bg_send_redpack"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_send_redpack_top"
+            android:gravity="center"
+            android:padding="@dimen/_8dp"
+            android:text="@string/info_send_redpack"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18sp" />
+
+        <com.flyco.tablayout.CommonTabLayout
+            android:id="@+id/tabL"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_42dp"
+            android:layout_marginBottom="@dimen/_8dp"
+            android:background="@color/msg_redpack"
+            android:paddingLeft="@dimen/_10dp"
+            android:paddingRight="@dimen/_10dp"
+            app:tl_iconVisible="false"
+            app:tl_indicator_color="@color/msg_redpack_sel"
+            app:tl_indicator_style="BLOCK"
+            app:tl_textBold="SELECT"
+            app:tl_textsize="16sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/userRecy"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="@dimen/_48dp" />
+
+        <RadioGroup
+            android:id="@+id/fingerRg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:visibility="gone"
+            android:layout_marginLeft="@dimen/_12dp"
+            android:layout_marginRight="@dimen/_12dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/fingerScissorsRb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_16sp"
+                android:layout_weight="1"
+                android:text="@string/finger_scissors" />
+
+            <RadioButton
+                android:id="@+id/fingerStoneRb"
+                android:layout_width="0dp"
+                android:textSize="@dimen/_16sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/finger_stone" />
+
+            <RadioButton
+                android:id="@+id/fingerClothRb"
+                android:layout_width="0dp"
+                android:textSize="@dimen/_16sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/finger_cloth" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/pointEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_8dp"
+            android:layout_marginRight="@dimen/_8dp"
+            android:hint="@string/hint_redpack_point"
+            android:inputType="number"
+            android:textSize="@dimen/_14sp" />
+
+        <EditText
+            android:id="@+id/numEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_8dp"
+            android:layout_marginRight="@dimen/_8dp"
+            android:hint="@string/hint_redpack_num"
+            android:inputType="number"
+            android:textSize="@dimen/_14sp" />
+
+        <EditText
+            android:id="@+id/infoEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_8dp"
+            android:layout_marginRight="@dimen/_8dp"
+            android:hint="@string/hint_redpack_info"
+            android:textSize="@dimen/_14sp" />
+
+
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+            android:id="@+id/sendBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_12dp"
+            android:text="@string/btn_send_redpack"
+            android:textColor="@color/white"
+            android:theme="@style/PwlButton" />
+
+        <TextView
+            android:id="@+id/cancelTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/_12dp"
+            android:padding="5dp"
+            android:text="@string/info_cancel_redpack" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

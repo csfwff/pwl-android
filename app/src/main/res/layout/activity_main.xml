@@ -19,14 +19,16 @@
             android:id="@+id/headImg"
             android:src="@mipmap/ic_launcher"
             android:layout_height="@dimen/_40dp"/>
+
         <TextView
             android:layout_width="wrap_content"
-            android:text="聊天室"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="@dimen/_20sp"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_height="wrap_content"/>
+            android:text="聊天室"
+            android:id="@+id/titleTv"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
@@ -41,11 +43,17 @@
             android:adjustViewBounds="true"
             android:id="@+id/mainBg"
             android:layout_height="match_parent"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:id="@+id/msgRv"
             android:layout_height="match_parent"/>
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/userRv"
+            android:background="@color/half_transport"
+            android:visibility="gone"
+            android:layout_height="wrap_content"/>
 
     </FrameLayout>
     <LinearLayout
@@ -72,7 +80,33 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/_10dp"
+        android:paddingRight="@dimen/_10dp"
+        android:paddingBottom="@dimen/_5dp"
         android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="@dimen/_36dp"
+            android:src="@mipmap/emoji"
+            android:padding="2dp"
+            android:id="@+id/emojiImg"
+            android:layout_height="@dimen/_36dp"/>
+        <ImageView
+            android:layout_width="@dimen/_36dp"
+            android:src="@mipmap/redpack"
+            android:id="@+id/redpackImg"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_height="@dimen/_36dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:gravity="end|center_vertical"
+            android:textSize="@dimen/_14sp"
+            android:textStyle="italic"
+            android:id="@+id/discussTv"
+            android:lines="1"
+            android:ellipsize="middle"
+            android:textColor="@color/blue_discuss"
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 
