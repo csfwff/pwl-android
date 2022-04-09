@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
         bgImg.setImageBitmap(blurBmp)
 
         API_KEY = preferences.apiKey!!
-        if(!API_KEY.isNullOrEmpty()){
+        if(!API_KEY.isNullOrBlank()){
             USERNAME = preferences.userName!!
             startActivity(Intent(this,MainActivity::class.java))
             finish()

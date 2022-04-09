@@ -41,8 +41,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/userRecy"
             android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/_8dp"
             android:visibility="gone"
-            android:layout_height="@dimen/_48dp" />
+            android:layout_height="@dimen/_114dp" />
 
         <RadioGroup
             android:id="@+id/fingerRg"

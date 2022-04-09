@@ -20,6 +20,8 @@
     <string name="toast_connect_fail">连接失败</string>
     <string name="toast_reconnect">正在重连</string>
     <string name="toast_say_something">说点什么吧~</string>
+    <string name="toast_unauth">登录过期了，少侠重新登录吧</string>
+    <string name="toast_specify">总得告诉我发给谁吧~</string>
 
     <string name="info_send_redpack">发红包</string>
     <string name="info_cancel_redpack">穷，算了吧</string>
@@ -27,5 +29,22 @@
     <string name="finger_scissors">✌</string>
     <string name="finger_stone">✊</string>
     <string name="finger_cloth">🖐</string>
+
+
+    <string name="redpack_random">摸鱼者，事竟成！</string>
+    <string name="redpack_average">平分红包，人人有份！</string>
+    <string name="redpack_specify">试试看，这是给你的红包吗？</string>
+    <string name="redpack_heartbeat">玩的就是心跳！</string>
+    <string name="redpack_gesture">石头剪刀布！</string>
+    <string name="redpack_default">为什么不问问神奇红包呢？</string>
+
+
+    <string name="redpack_type_random">拼手气红包</string>
+    <string name="redpack_type_average">普通红包</string>
+    <string name="redpack_type_specify">专属红包</string>
+    <string name="redpack_type_heartbeat">心跳红包</string>
+    <string name="redpack_type_gesture">猜拳红包</string>
+    <string name="redpack_type_default">神奇红包</string>
+
 
 </resources>

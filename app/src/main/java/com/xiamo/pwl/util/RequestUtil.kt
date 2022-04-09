@@ -2,6 +2,8 @@ package com.xiamo.pwl.util
 
 
 import android.content.Context
+import android.content.Intent
+import com.ayvytr.ktx.context.toast
 import com.google.gson.Gson
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.callback.StringCallback
@@ -12,6 +14,7 @@ import com.xiamo.pwl.common.API_KEY
 import com.xiamo.pwl.common.BASE_URL
 import com.xiamo.pwl.common.URL_GET_KEY
 import com.xiamo.pwl.common.URL_SEND_MSG
+import com.xiamo.pwl.ui.LoginActivity
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
@@ -78,6 +81,14 @@ class RequestUtil private constructor() {
                     val baseBean = gson.fromJson(response?.body(), BaseBean::class.java)
                     if(baseBean.code==0){
                         callback?.invoke()
+                    }else if(baseBean.msg == "401"){
+                        //回到登录页
+                            context.toast(R.string.toast_unauth)
+                        val preferences by lazy { SharedPreferencesUtils(context) }
+                        preferences.apiKey=""
+                        val intent = Intent(context, LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        context.startActivity(intent)
                     }else{
                         errCallback?.invoke(baseBean.msg+"")
                     }

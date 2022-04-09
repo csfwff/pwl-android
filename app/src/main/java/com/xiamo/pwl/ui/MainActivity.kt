@@ -114,8 +114,15 @@ class MainActivity : BaseActivity() {
         redpackImg.onClick {
             if(sendRedpackPop==null){
                 sendRedpackPop = SendRedpackPop(this)
+                sendRedpackPop!!.setOnConfirmListener{
+                    RequestUtil.getInstance().sendMsg(this,"[redpacket]${it}[/redpacket]",{
+
+                    },{result->
+                        toast(result)
+                    })
+                }
             }
-            sendRedpackPop?.showPopupWindow()
+            sendRedpackPop?.setUser(userAdapter?.data!!)?.showPopupWindow()
         }
     }
 

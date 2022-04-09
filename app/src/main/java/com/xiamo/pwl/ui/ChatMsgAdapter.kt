@@ -3,6 +3,7 @@ package com.xiamo.pwl.ui
 
 import android.graphics.drawable.Drawable
 import android.util.Log
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.DataSource
@@ -65,7 +66,7 @@ class ChatMsgAdapter(msgList: MutableList<ChatMessage>): BaseMultiItemQuickAdapt
            MSG_TYPE_REDPACK,MSG_TYPE_REDPACK_MINE->{
                setUserInfo(holder,item)
                var redPackMsg = item.redPackMsg
-               holder.setText(R.id.redpackContentTv,if(redPackMsg!!.msg.isNullOrBlank()) getRedpackDefaultMsg(redPackMsg.type) else redPackMsg.msg)
+               holder.setText(R.id.redpackContentTv,if(redPackMsg!!.msg.isNullOrBlank()) context.getString(getRedpackDefaultMsg(redPackMsg.type)) else redPackMsg.msg)
                holder.setText(R.id.redpackTypeTv,getRedpackType(redPackMsg.type))
            }
        }
@@ -86,23 +87,25 @@ class ChatMsgAdapter(msgList: MutableList<ChatMessage>): BaseMultiItemQuickAdapt
     }
 
 
-    fun getRedpackDefaultMsg(type:String?): String {
+    fun getRedpackDefaultMsg(type:String?): Int {
         return when(type){
-            "random"->"摸鱼者，事竟成！"
-            "average"->"平分红包，人人有份！"
-            "specify"->"试试看，这是给你的红包吗？"
-            "heartbeat"->"玩的就是心跳！"
-            else->"为什么不问问神奇红包呢？"
+            "random"->R.string.redpack_random
+            "average"->R.string.redpack_average
+            "specify"->R.string.redpack_specify
+            "heartbeat"->R.string.redpack_heartbeat
+            "rockPaperScissors"->R.string.redpack_gesture
+            else->R.string.redpack_default
         }
     }
 
-    fun getRedpackType(type:String?): String {
+    fun getRedpackType(type:String?): Int {
         return when(type){
-            "random"->"拼手气红包"
-            "average"->"普通红包"
-            "specify"->"专属红包"
-            "heartbeat"->"心跳红包"
-            else->"神奇红包"
+            "random"->R.string.redpack_type_random
+            "average"->R.string.redpack_type_average
+            "specify"->R.string.redpack_type_specify
+            "heartbeat"->R.string.redpack_type_heartbeat
+            "rockPaperScissors"->R.string.redpack_type_gesture
+            else->R.string.redpack_type_default
         }
     }
 
