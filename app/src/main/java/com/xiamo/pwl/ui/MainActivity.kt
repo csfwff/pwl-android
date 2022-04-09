@@ -23,6 +23,7 @@ import com.rabtman.wsmanager.WsManager
 import com.rabtman.wsmanager.listener.WsStatusListener
 import com.xiamo.pwl.bean.ChatMessage
 import com.xiamo.pwl.bean.RedPackMsg
+import com.xiamo.pwl.bean.RedpackDanmu
 import com.xiamo.pwl.bean.User
 import com.xiamo.pwl.common.*
 import com.xiamo.pwl.util.FastBlurUtil
@@ -49,6 +50,7 @@ class MainActivity : BaseActivity() {
     var userList = mutableListOf<User>()
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -68,6 +70,7 @@ class MainActivity : BaseActivity() {
         val blurBmp = FastBlurUtil.toBlur(bgBmp,5)
         mainBg.setImageBitmap(blurBmp)
 
+        danmuView.setAdapter(RedpackDanmuAdapter(this))
 
         initAdapter()
         initWs()
@@ -160,6 +163,7 @@ class MainActivity : BaseActivity() {
                     "msg"->addMsg(msg)
                     "revoke"->revokeMsg(msg)
                     "online"->dealOnline(msg)
+                    "redPacketStatus"->addDanmu(msg)
                 }
 
             }
@@ -244,6 +248,17 @@ class MainActivity : BaseActivity() {
         titleTv.text = "聊天室(${msg.onlineChatCnt})"
         userAdapter?.setNewInstance(msg.users as MutableList<User>?)
         discussTv.text = "#${msg.discussing}#"
+    }
+
+    fun addDanmu(msg:ChatMessage){
+        var redpackDanmu = RedpackDanmu().apply {
+            userName = msg.whoGot.toString()
+            sendUserName = msg.whoGive.toString()
+            redpackId = msg.oId.toString()
+            totalNum = msg.count.toString()
+            getNum = msg.got.toString()
+        }
+        danmuView.addDanmu(redpackDanmu)
     }
 
 

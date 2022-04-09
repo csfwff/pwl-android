@@ -68,6 +68,7 @@ class ChatMsgAdapter(msgList: MutableList<ChatMessage>): BaseMultiItemQuickAdapt
                var redPackMsg = item.redPackMsg
                holder.setText(R.id.redpackContentTv,if(redPackMsg!!.msg.isNullOrBlank()) context.getString(getRedpackDefaultMsg(redPackMsg.type)) else redPackMsg.msg)
                holder.setText(R.id.redpackTypeTv,getRedpackType(redPackMsg.type))
+               holder.setVisible(R.id.fingerLl,redPackMsg.type=="rockPaperScissors")
            }
        }
     }

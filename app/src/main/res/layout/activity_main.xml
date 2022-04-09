@@ -54,6 +54,12 @@
             android:background="@color/half_transport"
             android:visibility="gone"
             android:layout_height="wrap_content"/>
+        <com.orzangleli.xdanmuku.DanmuContainerView
+            android:id="@+id/danmuView"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_40dp"
+            android:layout_height="80dp"
+            />
 
     </FrameLayout>
     <LinearLayout
