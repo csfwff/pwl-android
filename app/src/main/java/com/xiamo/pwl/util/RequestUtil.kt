@@ -10,9 +10,8 @@ import com.lzy.okgo.callback.StringCallback
 import com.lzy.okgo.model.Response
 import com.xiamo.pwl.R
 import com.xiamo.pwl.bean.BaseBean
-import com.xiamo.pwl.common.API_KEY
-import com.xiamo.pwl.common.BASE_URL
-import com.xiamo.pwl.common.URL_GET_KEY
+import com.xiamo.pwl.bean.OpenRedpack
+import com.xiamo.pwl.common.*
 import com.xiamo.pwl.common.URL_SEND_MSG
 import com.xiamo.pwl.ui.LoginActivity
 import java.text.SimpleDateFormat
@@ -92,6 +91,57 @@ class RequestUtil private constructor() {
                     }else{
                         errCallback?.invoke(baseBean.msg+"")
                     }
+                }
+                override fun onError(response: Response<String>?) {
+                    super.onError(response)
+                    errCallback?.invoke(context.getString(R.string.toast_net_err))
+                }
+            })
+    }
+
+    fun openRedpack(
+        context: Context,
+        oId:String,
+        gesture:Int?=null,
+        callback: ((OpenRedpack) -> Unit)? = null,
+        errCallback: ((String) -> Unit)? = null
+    ){
+        var params = HashMap<String,String>()
+        params["apiKey"] = API_KEY
+        params["oId"] = oId
+        if(gesture!=null){
+            params["gesture"] = gesture.toString()
+        }
+        OkGo.post<String>(BASE_URL + URL_OPEN_REDPACK)
+            .upJson(gson.toJson(params))
+            .execute(object : StringCallback() {
+                override fun onSuccess(response: Response<String>?) {
+//                    val baseBean = gson.fromJson(response?.body(), BaseBean::class.java)
+//                    if(baseBean.code==0){
+                    try {
+                        val openRedpack = gson.fromJson(response?.body(),OpenRedpack::class.java)
+                        if(openRedpack.code==null){
+                            callback?.invoke(openRedpack)
+                        }else{
+                            errCallback?.invoke(openRedpack.msg.toString())
+                        }
+
+
+                    }catch (e:Exception){
+                        errCallback?.invoke(e.message.toString())
+                    }
+
+//                    }else if(baseBean.msg == "401"){
+//                        //回到登录页
+//                        context.toast(R.string.toast_unauth)
+//                        val preferences by lazy { SharedPreferencesUtils(context) }
+//                        preferences.apiKey=""
+//                        val intent = Intent(context, LoginActivity::class.java)
+//                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//                        context.startActivity(intent)
+//                    }else{
+//                        errCallback?.invoke(baseBean.msg+"")
+//                    }
                 }
                 override fun onError(response: Response<String>?) {
                     super.onError(response)

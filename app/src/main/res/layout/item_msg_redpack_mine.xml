@@ -49,6 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_marginLeft="@dimen/_8dp"
                 android:orientation="vertical"
+                android:id="@+id/redpackLl"
                 android:background="@drawable/bg_msg_redpack_mine"
                 android:layout_height="wrap_content">
                 <LinearLayout

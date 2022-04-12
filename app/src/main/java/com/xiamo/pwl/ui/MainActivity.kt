@@ -50,6 +50,7 @@ class MainActivity : BaseActivity() {
     var sendRedpackPop:SendRedpackPop?=null
     var userAdapter:UserAdapter?=null
     var userList = mutableListOf<User>()
+    var openRedpackPop:OpenRedpackPop?=null
 
 
 
@@ -139,8 +140,24 @@ class MainActivity : BaseActivity() {
         msgRv.adapter = chatMsgAdapter
         chatMsgAdapter?.initMarkdown()
 
-        chatMsgAdapter?.setOnItemChildClickListener { adapter, view, position ->
+        chatMsgAdapter?.addChildClickViewIds(R.id.redpackLl,R.id.finger0Tv,R.id.finger1Tv,R.id.finger2Tv)
 
+        chatMsgAdapter?.setOnItemChildClickListener { adapter, view, position ->
+            var msg = adapter.getItem(position) as ChatMessage
+            when(view.id){
+                R.id.redpackLl->{
+                    openRedpack(msg.oId.toString())
+                }
+                R.id.finger0Tv->{
+                    openRedpack(msg.oId.toString(),0)
+                }
+                R.id.finger1Tv->{
+                    openRedpack(msg.oId.toString(),1)
+                }
+                R.id.finger2Tv->{
+                    openRedpack(msg.oId.toString(),2)
+                }
+            }
         }
 
         userRv.layoutManager  = LinearLayoutManager(this,RecyclerView.HORIZONTAL,false)
@@ -267,5 +284,15 @@ class MainActivity : BaseActivity() {
         danmuView.addDanmu(redpackDanmu)
     }
 
+    fun openRedpack(id:String,gesture:Int?=null){
+        RequestUtil.getInstance().openRedpack(this,id,gesture,{
+            if(openRedpackPop==null){
+                openRedpackPop = OpenRedpackPop(this)
+            }
+            openRedpackPop?.setData(it)?.showPopupWindow()
+        },{result->
+            toast(result)
+        })
+    }
 
 }

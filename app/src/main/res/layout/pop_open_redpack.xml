@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/bgLl"
     xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center">
 
@@ -85,7 +86,7 @@
             android:background="@drawable/bg_redpack_type"
             android:paddingBottom="@dimen/_8dp"
             android:visibility="visible"
-            android:layout_height="@dimen/_114dp" />
+            android:layout_height="@dimen/_200dp" />
 
 
     </LinearLayout>

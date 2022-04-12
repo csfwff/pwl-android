@@ -1,9 +1,11 @@
 package com.xiamo.pwl.bean
 
 data class OpenRedpack(
-    val info: Info,
-    val recivers: List<String>,
-    val who: List<Who>
+    val info: Info?,
+    val recivers: List<String>?,
+    val who: List<Who>?,
+    val code:Int?,
+    val msg:String?
 )
 
 data class Info(
