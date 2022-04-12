@@ -25,6 +25,8 @@
 
     <string name="info_send_redpack">发红包</string>
     <string name="info_cancel_redpack">穷，算了吧</string>
+    <string name="info_zero">0溢事件</string>
+    <string name="info_max">老王的认可</string>
 
     <string name="finger_scissors">✌</string>
     <string name="finger_stone">✊</string>

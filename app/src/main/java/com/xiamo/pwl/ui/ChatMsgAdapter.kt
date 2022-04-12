@@ -17,6 +17,7 @@ import com.xiamo.pwl.R
 import com.xiamo.pwl.bean.ChatMessage
 import com.xiamo.pwl.common.*
 import com.xiamo.pwl.plugin.GifGlideStore
+import com.xiamo.pwl.util.HeadImgUtils
 import io.noties.markwon.Markwon
 import io.noties.markwon.image.AsyncDrawable
 import io.noties.markwon.image.glide.GlideImagesPlugin
@@ -68,17 +69,15 @@ class ChatMsgAdapter(msgList: MutableList<ChatMessage>): BaseMultiItemQuickAdapt
                var redPackMsg = item.redPackMsg
                holder.setText(R.id.redpackContentTv,if(redPackMsg!!.msg.isNullOrBlank()) context.getString(getRedpackDefaultMsg(redPackMsg.type)) else redPackMsg.msg)
                holder.setText(R.id.redpackTypeTv,getRedpackType(redPackMsg.type))
-               holder.setVisible(R.id.fingerLl,redPackMsg.type=="rockPaperScissors")
+               if(holder.itemViewType==MSG_TYPE_REDPACK){
+                   holder.setVisible(R.id.fingerLl,redPackMsg.type=="rockPaperScissors")
+               }
            }
        }
     }
 
     fun setUserInfo(holder: BaseViewHolder, item: ChatMessage){
-        if(item.userAvatarURL!!.endsWith("gif")){
-            Glide.with(PwlApplication.instance!!.baseContext).asGif().load(item.userAvatarURL).into(holder.getView(R.id.headImg))
-        }else{
-            Glide.with(context).load(item.userAvatarURL).into(holder.getView(R.id.headImg))
-        }
+        HeadImgUtils.loadHead(holder.getView(R.id.headImg),item.userAvatarURL!!)
         if(item.userNickname.isNullOrBlank()){
             holder.setText(R.id.userTv, item.userName)
         }else{

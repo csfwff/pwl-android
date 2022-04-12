@@ -14,6 +14,8 @@ import co.zsmb.materialdrawerkt.builders.drawer
 import com.ayvytr.ktx.context.toast
 import com.ayvytr.ktx.ui.isVisible
 import com.ayvytr.ktx.ui.onClick
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.google.gson.Gson
 import com.gyf.immersionbar.ktx.immersionBar
 import com.mikepenz.materialdrawer.Drawer
@@ -136,6 +138,10 @@ class MainActivity : BaseActivity() {
         chatMsgAdapter = ChatMsgAdapter(msgList)
         msgRv.adapter = chatMsgAdapter
         chatMsgAdapter?.initMarkdown()
+
+        chatMsgAdapter?.setOnItemChildClickListener { adapter, view, position ->
+
+        }
 
         userRv.layoutManager  = LinearLayoutManager(this,RecyclerView.HORIZONTAL,false)
         userAdapter = UserAdapter(userList,false)

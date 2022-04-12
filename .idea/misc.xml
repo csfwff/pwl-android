@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/github/pwl/app/src/main/res/drawable/bg_max.xml" value="0.38229166666666664" />
         <entry key="..\:/github/pwl/app/src/main/res/drawable/bg_msg.xml" value="0.2765625" />
         <entry key="..\:/github/pwl/app/src/main/res/drawable/bg_msg_mine.xml" value="0.38229166666666664" />
         <entry key="..\:/github/pwl/app/src/main/res/drawable/bg_msg_redpack.xml" value="0.38229166666666664" />
@@ -11,6 +12,7 @@
         <entry key="..\:/github/pwl/app/src/main/res/drawable/bg_send_redpack.xml" value="0.38229166666666664" />
         <entry key="..\:/github/pwl/app/src/main/res/drawable/bg_send_redpack_top.xml" value="0.38229166666666664" />
         <entry key="..\:/github/pwl/app/src/main/res/drawable/bg_user_sel.xml" value="2.4214285714285713" />
+        <entry key="..\:/github/pwl/app/src/main/res/drawable/bg_zero.xml" value="0.38229166666666664" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/activity_login.xml" value="0.36614583333333334" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/item_head.xml" value="0.36614583333333334" />
@@ -18,8 +20,10 @@
         <entry key="..\:/github/pwl/app/src/main/res/layout/item_message_mine.xml" value="0.36614583333333334" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/item_msg_redpack.xml" value="0.36614583333333334" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/item_msg_redpack_mine.xml" value="0.19739583333333333" />
+        <entry key="..\:/github/pwl/app/src/main/res/layout/item_open_redpack.xml" value="0.36614583333333334" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/item_redpack_danmu.xml" value="0.36614583333333334" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/item_user.xml" value="0.9" />
+        <entry key="..\:/github/pwl/app/src/main/res/layout/pop_open_redpack.xml" value="0.36614583333333334" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/pop_send_redpack.xml" value="0.36614583333333334" />
       </map>
     </option>
