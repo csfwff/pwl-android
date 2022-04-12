@@ -9,6 +9,7 @@ const val URL_GET_KEY = "/api/getKey"
 const val URL_CHAT_ROOM = "/chat-room-channel"
 const val URL_SEND_MSG = "/chat-room/send"
 const val URL_OPEN_REDPACK = "/chat-room/red-packet/open"
+const val URL_GET_USER_INFO = "/user/"
 
 val MSG_TYPE_DEFAULT = 0
 val MSG_TYPE_MSG = 1

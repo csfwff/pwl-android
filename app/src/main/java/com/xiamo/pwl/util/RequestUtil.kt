@@ -11,6 +11,7 @@ import com.lzy.okgo.model.Response
 import com.xiamo.pwl.R
 import com.xiamo.pwl.bean.BaseBean
 import com.xiamo.pwl.bean.OpenRedpack
+import com.xiamo.pwl.bean.UserInfo
 import com.xiamo.pwl.common.*
 import com.xiamo.pwl.common.URL_SEND_MSG
 import com.xiamo.pwl.ui.LoginActivity
@@ -116,8 +117,6 @@ class RequestUtil private constructor() {
             .upJson(gson.toJson(params))
             .execute(object : StringCallback() {
                 override fun onSuccess(response: Response<String>?) {
-//                    val baseBean = gson.fromJson(response?.body(), BaseBean::class.java)
-//                    if(baseBean.code==0){
                     try {
                         val openRedpack = gson.fromJson(response?.body(),OpenRedpack::class.java)
                         if(openRedpack.code==null){
@@ -130,24 +129,37 @@ class RequestUtil private constructor() {
                     }catch (e:Exception){
                         errCallback?.invoke(e.message.toString())
                     }
-
-//                    }else if(baseBean.msg == "401"){
-//                        //回到登录页
-//                        context.toast(R.string.toast_unauth)
-//                        val preferences by lazy { SharedPreferencesUtils(context) }
-//                        preferences.apiKey=""
-//                        val intent = Intent(context, LoginActivity::class.java)
-//                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-//                        context.startActivity(intent)
-//                    }else{
-//                        errCallback?.invoke(baseBean.msg+"")
-//                    }
                 }
                 override fun onError(response: Response<String>?) {
                     super.onError(response)
                     errCallback?.invoke(context.getString(R.string.toast_net_err))
                 }
             })
+    }
+
+    fun getUserInfo(
+        context: Context,
+        userId:String,
+        callback: ((UserInfo) -> Unit)? = null,
+        errCallback: ((String) -> Unit)? = null
+    ){
+        OkGo.get<String>("$BASE_URL$URL_GET_USER_INFO$userId?apiKey=$API_KEY")
+            .execute(object : StringCallback() {
+                override fun onSuccess(response: Response<String>?) {
+                    try {
+                        val userInfo = gson.fromJson(response?.body(),UserInfo::class.java)
+                        callback?.invoke(userInfo)
+                    }catch (e:Exception){
+                        errCallback?.invoke(e.message.toString())
+                    }
+                }
+                override fun onError(response: Response<String>?) {
+                    super.onError(response)
+                    errCallback?.invoke(context.getString(R.string.toast_net_err))
+                }
+            })
+
+
     }
 
 
