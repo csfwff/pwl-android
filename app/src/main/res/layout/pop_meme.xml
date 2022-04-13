@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/bgLl"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_48dp"
+        android:layout_marginRight="@dimen/_48dp"
+        android:background="@drawable/bg_send_redpack"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/memeRv"
+            android:layout_width="match_parent"
+            android:background="@drawable/bg_redpack_type"
+            android:visibility="visible"
+            android:layout_height="400dp" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

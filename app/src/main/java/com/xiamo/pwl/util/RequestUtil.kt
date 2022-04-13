@@ -12,6 +12,7 @@ import com.xiamo.pwl.R
 import com.xiamo.pwl.bean.BaseBean
 import com.xiamo.pwl.bean.OpenRedpack
 import com.xiamo.pwl.bean.UserInfo
+import com.xiamo.pwl.bean.UserMeme
 import com.xiamo.pwl.common.*
 import com.xiamo.pwl.common.URL_SEND_MSG
 import com.xiamo.pwl.ui.LoginActivity
@@ -79,18 +80,22 @@ class RequestUtil private constructor() {
             .execute(object : StringCallback() {
                 override fun onSuccess(response: Response<String>?) {
                     val baseBean = gson.fromJson(response?.body(), BaseBean::class.java)
-                    if(baseBean.code==0){
-                        callback?.invoke()
-                    }else if(baseBean.msg == "401"){
-                        //回到登录页
+                    when {
+                        baseBean.code==0 -> {
+                            callback?.invoke()
+                        }
+                        baseBean.msg == "401" -> {
+                            //回到登录页
                             context.toast(R.string.toast_unauth)
-                        val preferences by lazy { SharedPreferencesUtils(context) }
-                        preferences.apiKey=""
-                        val intent = Intent(context, LoginActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        context.startActivity(intent)
-                    }else{
-                        errCallback?.invoke(baseBean.msg+"")
+                            val preferences by lazy { SharedPreferencesUtils(context) }
+                            preferences.apiKey=""
+                            val intent = Intent(context, LoginActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                            context.startActivity(intent)
+                        }
+                        else -> {
+                            errCallback?.invoke(baseBean.msg+"")
+                        }
                     }
                 }
                 override fun onError(response: Response<String>?) {
@@ -158,9 +163,53 @@ class RequestUtil private constructor() {
                     errCallback?.invoke(context.getString(R.string.toast_net_err))
                 }
             })
-
-
     }
+
+
+    fun getUserMeme(
+        context: Context,
+        callback: ((UserMeme) -> Unit)? = null,
+        errCallback: ((String) -> Unit)? = null
+    ){
+        var params = HashMap<String,String>()
+        params["apiKey"] = API_KEY
+        params["gameId"] = "emojis"
+
+        OkGo.post<String>(BASE_URL + URL_GET_USER_CLOUD)
+            .upJson(gson.toJson(params))
+            .execute(object : StringCallback() {
+                override fun onSuccess(response: Response<String>?) {
+                    try {
+                        val userMeme = gson.fromJson(response?.body(),UserMeme::class.java)
+                        when {
+                            userMeme.code==0 -> {
+                                callback?.invoke(userMeme)
+                            }
+                            userMeme.msg == "401" -> {
+                                //回到登录页
+                                context.toast(R.string.toast_unauth)
+                                val preferences by lazy { SharedPreferencesUtils(context) }
+                                preferences.apiKey=""
+                                val intent = Intent(context, LoginActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                                context.startActivity(intent)
+                            }
+                            else -> {
+                                errCallback?.invoke(userMeme.msg+"")
+                            }
+                        }
+                    }catch (e:Exception){
+                        errCallback?.invoke(e.message.toString())
+                    }
+                }
+                override fun onError(response: Response<String>?) {
+                    super.onError(response)
+                    errCallback?.invoke(context.getString(R.string.toast_net_err))
+                }
+            })
+    }
+
+
 
 
 }

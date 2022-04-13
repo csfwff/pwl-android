@@ -86,6 +86,7 @@ class MainActivity : BaseActivity() {
         initClicks()
 
         getUserInfo()
+        getUserMeme()
 
 
     }
@@ -319,6 +320,14 @@ class MainActivity : BaseActivity() {
             HeadImgUtils.loadHead(bgImg, it.cardBg)
             (headView.findViewById(R.id.userNameTv) as TextView).text = it.userNickname
             (headView.findViewById(R.id.userIdTv) as TextView).text = it.userName
+        }, { result ->
+            toast(result)
+        })
+    }
+
+    fun getUserMeme(){
+        RequestUtil.getInstance().getUserMeme(this, {
+
         }, { result ->
             toast(result)
         })
