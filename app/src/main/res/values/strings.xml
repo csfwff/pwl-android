@@ -4,6 +4,7 @@
 
     <string name="hint_user_name">用户名/邮箱</string>
     <string name="hint_pwd">密码</string>
+    <string name="hint_mfa">两步验证码</string>
     <string name="hint_redpack_point">总共塞多少积分</string>
     <string name="hint_redpack_point_1">一个包塞多少积分</string>
     <string name="hint_redpack_num">分几个包来着？</string>

@@ -2,21 +2,35 @@ package com.xiamo.pwl.ui
 
 
 
+import android.content.ContentValues
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.zsmb.materialdrawerkt.builders.drawer
 import com.ayvytr.ktx.context.toast
+import com.ayvytr.ktx.ui.getContext
 import com.ayvytr.ktx.ui.isVisible
 import com.ayvytr.ktx.ui.onClick
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.gyf.immersionbar.ktx.immersionBar
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
@@ -24,10 +38,7 @@ import com.xiamo.pwl.R
 import kotlinx.android.synthetic.main.activity_main.*
 import com.rabtman.wsmanager.WsManager
 import com.rabtman.wsmanager.listener.WsStatusListener
-import com.xiamo.pwl.bean.ChatMessage
-import com.xiamo.pwl.bean.RedPackMsg
-import com.xiamo.pwl.bean.RedpackDanmu
-import com.xiamo.pwl.bean.User
+import com.xiamo.pwl.bean.*
 import com.xiamo.pwl.common.*
 import com.xiamo.pwl.util.FastBlurUtil
 import com.xiamo.pwl.util.HeadImgUtils
@@ -36,7 +47,17 @@ import com.xiamo.pwl.util.RequestUtil
 import okhttp3.OkHttpClient
 import okhttp3.Response
 import okio.ByteString
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.lang.Exception
 import java.util.concurrent.TimeUnit
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
+
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent.setEventListener
+import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
+import java.io.File
+import java.util.*
 
 
 class MainActivity : BaseActivity() {
@@ -52,7 +73,11 @@ class MainActivity : BaseActivity() {
     var userAdapter: UserAdapter? = null
     var userList = mutableListOf<User>()
     var openRedpackPop: OpenRedpackPop? = null
+    var memeAdapter :UserMemeAdapter?=null
 
+    var photoResult: ActivityResultLauncher<String>?=null
+    var cameraResult: ActivityResultLauncher<Uri>?=null
+    var imageSaveUri : Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,9 +106,20 @@ class MainActivity : BaseActivity() {
 
         danmuView.setAdapter(RedpackDanmuAdapter(this))
 
+        photoResult = registerForActivityResult(ActivityResultContracts.GetContent()){
+
+        }
+
+        cameraResult = registerForActivityResult(ActivityResultContracts.TakePicture()){
+
+        }
+
+        getEmojis()
         initAdapter()
         initWs()
         initClicks()
+        initKeyboard()
+        initMeme()
 
         getUserInfo()
         getUserMeme()
@@ -123,9 +159,24 @@ class MainActivity : BaseActivity() {
             userRv.visibility = if (userRv.isVisible()) View.GONE else View.VISIBLE
         }
 
-
         sendBtn.onClick {
             sendMsg()
+        }
+
+        emojiImg.onClick {
+            emojiRv.visibility = if (emojiRv.isVisible()) View.GONE else View.VISIBLE
+            if(emojiRv.visibility == View.VISIBLE){
+                UIUtil.hideKeyboard(this)
+                memeRv.visibility = View.GONE
+            }
+        }
+
+        photoImg.onClick {
+            memeRv.visibility = if (memeRv.isVisible()) View.GONE else View.VISIBLE
+            if(memeRv.visibility == View.VISIBLE){
+                UIUtil.hideKeyboard(this)
+                emojiRv.visibility = View.GONE
+            }
         }
 
         redpackImg.onClick {
@@ -141,6 +192,15 @@ class MainActivity : BaseActivity() {
             }
             sendRedpackPop?.setUser(userAdapter?.data!!)?.showPopupWindow()
         }
+    }
+
+    fun initKeyboard(){
+        setEventListener(this, KeyboardVisibilityEventListener {
+                if(it){
+                    emojiRv.visibility = View.GONE
+                    memeRv.visibility = View.GONE
+                }
+            })
     }
 
 
@@ -325,12 +385,89 @@ class MainActivity : BaseActivity() {
         })
     }
 
+    fun initMeme(){
+        memeAdapter = UserMemeAdapter()
+        memeRv.layoutManager = GridLayoutManager(this,5)
+        memeRv.adapter = memeAdapter
+
+        memeAdapter?.setOnItemClickListener { adapter, view, position ->
+            if(position == 0){
+                //选择文件图片
+                photoResult?.launch("image/*")
+            } else  if(position == 1){
+            //拍照
+                onTakePicture()
+            }else{
+                //插入到输入框
+                var item = adapter.getItem(position) as String
+                var selStart = contentEt.selectionStart
+                var selend = contentEt.selectionEnd
+                var content = contentEt.text.delete(selStart,selend)
+                content = content.insert(selStart,"![图片表情](${item})")
+                contentEt.text = content
+                contentEt.setSelection(selStart+item.length+9)
+            }
+        }
+
+    }
+
     fun getUserMeme(){
         RequestUtil.getInstance().getUserMeme(this, {
-
+            var memeList = gson.fromJson<List<String>>(it.data, object :TypeToken<List<String>>() {}.type)as MutableList<String>
+            memeList.add(0,"")
+            memeList.add(0,"")
+            memeAdapter?.setNewInstance(memeList )
         }, { result ->
             toast(result)
         })
+    }
+
+    fun getEmojis() {
+        var result: String = ""
+        try {
+            val inputReader = InputStreamReader(resources.assets.open("emojis.txt"))
+            val bufReader = BufferedReader(inputReader)
+            var line: String? = ""
+            while (bufReader.readLine().also { line = it } != null) result += line
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        if(result.isBlank()){
+            return
+        }
+        var emojisList = gson.fromJson<List<EmojiItem>>(result, object :TypeToken<List<EmojiItem>>() {}.type)
+        var emojiAdapter = EmojiAdapter()
+        emojiRv.layoutManager = GridLayoutManager(this,8)
+        emojiAdapter.setNewInstance(emojisList as MutableList<EmojiItem>)
+        emojiAdapter.setOnItemClickListener { adapter, view, position ->
+            var item = adapter.getItem(position) as EmojiItem
+            var selStart = contentEt.selectionStart
+            var selend = contentEt.selectionEnd
+            var content = contentEt.text.delete(selStart,selend)
+            content = content.insert(selStart,":${item.name}:")
+            contentEt.text = content
+            contentEt.setSelection(selStart+item.name.length+2)
+        }
+        emojiRv.adapter = emojiAdapter
+
+
+    }
+
+    fun onTakePicture() {
+        var fileName = "pwl_${System.currentTimeMillis()}.jpe"
+        imageSaveUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val values = ContentValues()
+            values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+            values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+            contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+        } else {
+            FileProvider.getUriForFile(
+                this,
+                "${packageName}.fileprovider",
+                File(externalCacheDir!!.absolutePath, fileName)
+            )
+        }
+        cameraResult?.launch(imageSaveUri)
     }
 
 }

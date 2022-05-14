@@ -41,11 +41,13 @@ class RequestUtil private constructor() {
         context: Context,
         username:String,
         password:String,
+        mfaCode:String,
         callback: ((String) -> Unit)? = null,
         errCallback: ((String) -> Unit)? = null
     ){
         var params = HashMap<String,String>()
         params["nameOrEmail"] = username
+        params["mfaCode"] = mfaCode
         params["userPassword"] = StringToMD5.stringToMD5(password)
 
         OkGo.post<String>(BASE_URL + URL_GET_KEY)

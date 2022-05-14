@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_70dp">
+    <ImageView
+        android:layout_width="match_parent"
+        android:id="@+id/memeImg"
+        android:padding="1.5dp"
+        android:background="@drawable/bg_meme_img"
+        android:layout_margin="6dp"
+        android:layout_height="match_parent"/>
+    <ImageView
+        android:layout_width="@dimen/_20dp"
+        android:src="@mipmap/img_close"
+        android:layout_gravity="end"
+        android:id="@+id/closeImg"
+        android:layout_height="@dimen/_20dp"/>
+
+</FrameLayout>

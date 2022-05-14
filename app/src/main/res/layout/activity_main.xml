@@ -71,6 +71,7 @@
             android:id="@+id/contentEt"
             android:layout_weight="1"
             android:layout_marginLeft="4dp"
+            android:maxLines="3"
             android:layout_marginRight="4dp"
             android:hint="@string/toast_say_something"
             android:layout_height="wrap_content"/>
@@ -103,6 +104,13 @@
             android:id="@+id/redpackImg"
             android:layout_marginLeft="@dimen/_10dp"
             android:layout_height="@dimen/_36dp"/>
+        <ImageView
+            android:layout_width="@dimen/_36dp"
+            android:src="@mipmap/photo"
+            android:id="@+id/photoImg"
+            android:padding="2dp"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_height="@dimen/_36dp"/>
         <TextView
             android:layout_width="match_parent"
             android:gravity="end|center_vertical"
@@ -116,7 +124,20 @@
 
     </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/emojiRv"
+        android:visibility="gone"
+        android:layout_height="@dimen/_200dp">
 
+    </androidx.recyclerview.widget.RecyclerView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/memeRv"
+        android:visibility="gone"
+        android:layout_height="@dimen/_200dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 
 
