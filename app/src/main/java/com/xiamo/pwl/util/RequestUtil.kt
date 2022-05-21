@@ -16,6 +16,7 @@ import com.xiamo.pwl.bean.UserMeme
 import com.xiamo.pwl.common.*
 import com.xiamo.pwl.common.URL_SEND_MSG
 import com.xiamo.pwl.ui.LoginActivity
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
@@ -200,6 +201,31 @@ class RequestUtil private constructor() {
                                 errCallback?.invoke(userMeme.msg+"")
                             }
                         }
+                    }catch (e:Exception){
+                        errCallback?.invoke(e.message.toString())
+                    }
+                }
+                override fun onError(response: Response<String>?) {
+                    super.onError(response)
+                    errCallback?.invoke(context.getString(R.string.toast_net_err))
+                }
+            })
+    }
+
+    fun uploadImg(
+        context: Context,
+        file: File,
+        callback: ((String) -> Unit)? = null,
+        errCallback: ((String) -> Unit)? = null
+    ){
+        var list = listOf(file)
+        OkGo.post<String>("$BASE_URL$URL_UPLOAD_IMG?apiKey=$API_KEY")
+            .addFileParams("file[]",list)
+            .execute(object : StringCallback() {
+                override fun onSuccess(response: Response<String>?) {
+                    try {
+                        //val userInfo = gson.fromJson(response?.body(),UserInfo::class.java)
+                        callback?.invoke(response?.body().toString())
                     }catch (e:Exception){
                         errCallback?.invoke(e.message.toString())
                     }

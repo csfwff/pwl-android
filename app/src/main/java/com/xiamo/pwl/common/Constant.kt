@@ -11,6 +11,7 @@ const val URL_SEND_MSG = "/chat-room/send"
 const val URL_OPEN_REDPACK = "/chat-room/red-packet/open"
 const val URL_GET_USER_INFO = "/user/"
 const val URL_GET_USER_CLOUD = "/api/cloud/get"
+const val URL_UPLOAD_IMG = "/upload"
 
 val MSG_TYPE_DEFAULT = 0
 val MSG_TYPE_MSG = 1

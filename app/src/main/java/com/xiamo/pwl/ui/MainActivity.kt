@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
+import android.provider.DocumentsProvider
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -19,6 +20,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.documentfile.provider.DocumentFile
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -43,6 +45,7 @@ import com.xiamo.pwl.common.*
 import com.xiamo.pwl.util.FastBlurUtil
 import com.xiamo.pwl.util.HeadImgUtils
 import com.xiamo.pwl.util.RequestUtil
+import com.xiamo.pwl.util.UriUtils
 
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -107,11 +110,13 @@ class MainActivity : BaseActivity() {
         danmuView.setAdapter(RedpackDanmuAdapter(this))
 
         photoResult = registerForActivityResult(ActivityResultContracts.GetContent()){
-
+            uploadImg(it)
         }
 
         cameraResult = registerForActivityResult(ActivityResultContracts.TakePicture()){
-
+            if (it){
+                uploadImg(imageSaveUri!!)
+            }
         }
 
         getEmojis()
@@ -454,7 +459,7 @@ class MainActivity : BaseActivity() {
     }
 
     fun onTakePicture() {
-        var fileName = "pwl_${System.currentTimeMillis()}.jpe"
+        var fileName = "pwl_${System.currentTimeMillis()}.jpg"
         imageSaveUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val values = ContentValues()
             values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
@@ -468,6 +473,19 @@ class MainActivity : BaseActivity() {
             )
         }
         cameraResult?.launch(imageSaveUri)
+    }
+
+    fun uploadImg(uri:Uri){
+        var file = File(UriUtils.getFileAbsolutePath(this,uri))
+        RequestUtil.getInstance().uploadImg(this,file,{
+
+        },{
+
+        })
+
+
+
+
     }
 
 }
