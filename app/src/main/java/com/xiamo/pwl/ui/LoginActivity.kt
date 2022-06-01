@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         ImmersionBar.with(this).init()
-        val bgBmp = BitmapFactory.decodeResource(resources,R.mipmap.main_bg_1)
+        val bgBmp = BitmapFactory.decodeResource(resources,R.mipmap.main_bg_2)
         val blurBmp = FastBlurUtil.toBlur(bgBmp,10)
         bgImg.setImageBitmap(blurBmp)
 

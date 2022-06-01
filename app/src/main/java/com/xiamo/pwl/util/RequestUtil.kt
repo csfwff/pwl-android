@@ -9,10 +9,7 @@ import com.lzy.okgo.OkGo
 import com.lzy.okgo.callback.StringCallback
 import com.lzy.okgo.model.Response
 import com.xiamo.pwl.R
-import com.xiamo.pwl.bean.BaseBean
-import com.xiamo.pwl.bean.OpenRedpack
-import com.xiamo.pwl.bean.UserInfo
-import com.xiamo.pwl.bean.UserMeme
+import com.xiamo.pwl.bean.*
 import com.xiamo.pwl.common.*
 import com.xiamo.pwl.common.URL_SEND_MSG
 import com.xiamo.pwl.ui.LoginActivity
@@ -224,8 +221,25 @@ class RequestUtil private constructor() {
             .execute(object : StringCallback() {
                 override fun onSuccess(response: Response<String>?) {
                     try {
-                        //val userInfo = gson.fromJson(response?.body(),UserInfo::class.java)
-                        callback?.invoke(response?.body().toString())
+                        val baseBean  = gson.fromJson(response?.body(),BaseBean::class.java)
+                        if(baseBean.code==0){
+                            val uploadResult = gson.fromJson(baseBean.data,UploadFile::class.java)
+                            if(uploadResult.errFiles.isNullOrEmpty()){
+                                //成功
+                                var succMap = uploadResult.succMap
+                                if(succMap!=null){
+                                    var url = succMap.asJsonObject.get(file.name).asString
+                                    callback?.invoke(url)
+                                }else{
+                                    errCallback?.invoke("上传失败")
+                                }
+                            }else{
+                                errCallback?.invoke("上传失败")
+                            }
+                        }else{
+                            errCallback?.invoke(baseBean.msg.toString())
+                        }
+
                     }catch (e:Exception){
                         errCallback?.invoke(e.message.toString())
                     }

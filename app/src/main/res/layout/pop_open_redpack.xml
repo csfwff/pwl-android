@@ -35,7 +35,7 @@
                     android:layout_height="@dimen/_36dp">
                     <ImageView
                         android:layout_width="match_parent"
-                        android:src="@mipmap/login_bg"
+                        android:src="@mipmap/main_bg_2"
                         android:id="@+id/headImg"
                         android:scaleType="centerCrop"
                         android:layout_height="match_parent"/>

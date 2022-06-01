@@ -103,7 +103,7 @@ class MainActivity : BaseActivity() {
             statusBarColor(android.R.color.transparent)
             statusBarView(R.id.bgImg)
         }
-        val bgBmp = BitmapFactory.decodeResource(resources, R.mipmap.main_bg)
+        val bgBmp = BitmapFactory.decodeResource(resources, R.mipmap.main_bg_2)
         val blurBmp = FastBlurUtil.toBlur(bgBmp, 5)
         mainBg.setImageBitmap(blurBmp)
 
@@ -478,9 +478,14 @@ class MainActivity : BaseActivity() {
     fun uploadImg(uri:Uri){
         var file = File(UriUtils.getFileAbsolutePath(this,uri))
         RequestUtil.getInstance().uploadImg(this,file,{
-
+            var selStart = contentEt.selectionStart
+            var selend = contentEt.selectionEnd
+            var content = contentEt.text.delete(selStart,selend)
+            content = content.insert(selStart,"![图片表情](${it})")
+            contentEt.text = content
+            contentEt.setSelection(selStart+it.length+9)
         },{
-
+            toast(it)
         })
 
 
