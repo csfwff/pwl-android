@@ -146,6 +146,7 @@ class SendRedpackPop(context: Context):BasePopupWindow(context)  {
     override fun showPopupWindow() {
         super.showPopupWindow()
         tabL?.currentTab = 0
+        numEt?.visibility =  View.VISIBLE
         numEt?.setText("2")
         pointEt?.setText("32")
         infoEt?.setText("摸鱼者，事竟成！")
