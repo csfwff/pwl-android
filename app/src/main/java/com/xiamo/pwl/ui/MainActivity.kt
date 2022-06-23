@@ -61,6 +61,11 @@ import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent.set
 import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
 import java.io.File
 import java.util.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.ThreadMode
+
+import org.greenrobot.eventbus.Subscribe
+
 
 
 class MainActivity : BaseActivity() {
@@ -83,6 +88,7 @@ class MainActivity : BaseActivity() {
     var imageSaveUri : Uri? = null
 
     var editTopicPop:EditTopicPop?=null
+    var bigImagePop:BigImagePop?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -531,9 +537,56 @@ class MainActivity : BaseActivity() {
             toast(it)
         })
 
+    }
 
 
+    fun addMeme(url:String){
+        var memeList = mutableListOf<String>()
+        memeAdapter?.data?.let { memeList.addAll(it) }
+        if(memeList.isNotEmpty()){
+            memeList.removeAt(0)
+            memeList.removeAt(0)
+        }
+        if(memeList.indexOf(url)>=0){
+            toast(R.string.toast_add_meme)
+            return
+        }
+        memeList.add(url)
+        RequestUtil.getInstance().syncMeme(this,memeList,{
+            //添加成功
+            toast(R.string.toast_success)
+            memeAdapter?.addData(url)
+        },{
+            toast(it)
+        })
 
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: PwlEvent) {
+        when(event.code){
+            1->{
+                if(bigImagePop==null){
+                    bigImagePop = BigImagePop(this)
+                    bigImagePop!!.setOnConfirmListener {
+                        addMeme(it)
+                    }
+                }
+                bigImagePop?.showImage(event.info)
+            }
+        }
     }
 
 }

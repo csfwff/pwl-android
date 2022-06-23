@@ -17,6 +17,7 @@ import com.xiamo.pwl.R
 import com.xiamo.pwl.bean.ChatMessage
 import com.xiamo.pwl.common.*
 import com.xiamo.pwl.plugin.GifGlideStore
+import com.xiamo.pwl.plugin.ImageClickPlugin
 import com.xiamo.pwl.util.HeadImgUtils
 import io.noties.markwon.Markwon
 import io.noties.markwon.image.AsyncDrawable
@@ -54,6 +55,7 @@ class ChatMsgAdapter(msgList: MutableList<ChatMessage>): BaseMultiItemQuickAdapt
 
             }))
             .usePlugin(GlideImagesPlugin.create( GifGlideStore(Glide.with(context))))
+            .usePlugin(ImageClickPlugin())
             .build()
     }
 

@@ -26,6 +26,8 @@
     <string name="toast_unauth">登录过期了，少侠重新登录吧</string>
     <string name="toast_specify">总得告诉我发给谁吧~</string>
     <string name="toast_topic">新话题呢？</string>
+    <string name="toast_success">成功</string>
+    <string name="toast_add_meme">这表情已经加过了</string>
 
     <string name="info_send_redpack">发红包</string>
     <string name="info_cancel_redpack">穷，算了吧</string>
@@ -34,6 +36,7 @@
     <string name="info_edit_topic">编辑话题</string>
     <string name="info_edit_topic_detail">修改话题需要16积分，将自动从账户中扣除；最大长度16字符，不合法字符将被自动过滤。</string>
     <string name="info_topic_cancel">算了，不改了</string>
+    <string name="info_add_meme">添加到表情包</string>
 
     <string name="finger_scissors">✌</string>
     <string name="finger_stone">✊</string>
