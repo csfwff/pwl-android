@@ -41,6 +41,7 @@
     <string name="info_del_meme">删除表情</string>
     <string name="info_del_meme_detail">确认要删除下面这个表情么？</string>
     <string name="info_cancel_del">不是，要留着</string>
+    <string name="info_scroll_to_bottom">⇩滑到底部</string>
 
     <string name="finger_scissors">✌</string>
     <string name="finger_stone">✊</string>

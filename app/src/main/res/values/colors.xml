@@ -22,4 +22,6 @@
     <color name="msg_green">#12cc00</color>
     <color name="msg_redpack">#fecd41</color>
     <color name="msg_redpack_sel">#CC9908</color>
+
+    <color name="bottom_red">#FD3A3A</color>
 </resources>

@@ -88,6 +88,18 @@
                 android:text="@string/cha"/>
 
         </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="4dp"
+            android:paddingHorizontal="6dp"
+            android:visibility="gone"
+            android:id="@+id/scrollBottomTv"
+            android:background="@color/bottom_red"
+            android:text="@string/info_scroll_to_bottom"
+            android:textColor="@color/white"
+            android:paddingVertical="2dp"
+            android:layout_height="wrap_content"/>
 
     </FrameLayout>
     <LinearLayout

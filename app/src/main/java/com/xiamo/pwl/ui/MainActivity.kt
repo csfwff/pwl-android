@@ -238,6 +238,11 @@ class MainActivity : BaseActivity() {
             topicLl.visibility = View.INVISIBLE
         }
 
+        scrollBottomTv.onClick {
+            msgRv.scrollToPosition(msgList.size - 1)
+            scrollBottomTv.visibility = View.INVISIBLE
+        }
+
 
     }
 
@@ -257,6 +262,20 @@ class MainActivity : BaseActivity() {
         chatMsgAdapter = ChatMsgAdapter(msgList)
         msgRv.adapter = chatMsgAdapter
         chatMsgAdapter?.initMarkdown()
+        msgRv.addOnScrollListener(object :RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if(newState==RecyclerView.SCROLL_STATE_IDLE){
+                    var lastPos = linearLayoutManager?.findLastVisibleItemPosition()
+                    if (lastPos != null) {
+                        if (lastPos >= (msgList.size - 2)) {
+                            scrollBottomTv.visibility = View.INVISIBLE
+                        }
+                    }
+                }
+            }
+        })
+
 
         chatMsgAdapter?.addChildClickViewIds(
             R.id.redpackLl,
@@ -392,9 +411,10 @@ class MainActivity : BaseActivity() {
         var lastPos = linearLayoutManager?.findLastVisibleItemPosition()
         if (lastPos != null) {
             if (lastPos >= (msgList.size - 2)) {
-                Handler().postDelayed({
-                    msgRv.scrollToPosition(msgList.size - 1)
-                }, 1000)
+                msgRv.scrollToPosition(msgList.size - 1)
+                scrollBottomTv.visibility = View.INVISIBLE
+            }else{
+                scrollBottomTv.visibility = View.VISIBLE
             }
         }
     }
