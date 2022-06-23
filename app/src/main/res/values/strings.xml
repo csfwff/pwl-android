@@ -15,6 +15,7 @@
     <string name="btn_send">biu~</string>
     <string name="btn_send_redpack">千金散尽~</string>
     <string name="btn_confirm">就这样吧~</string>
+    <string name="btn_confirm_yes">是的</string>
 
     <string name="toast_net_err">你小子断网了吧……</string>
     <string name="toast_user">你得告诉我用户名……</string>
@@ -37,6 +38,9 @@
     <string name="info_edit_topic_detail">修改话题需要16积分，将自动从账户中扣除；最大长度16字符，不合法字符将被自动过滤。</string>
     <string name="info_topic_cancel">算了，不改了</string>
     <string name="info_add_meme">添加到表情包</string>
+    <string name="info_del_meme">删除表情</string>
+    <string name="info_del_meme_detail">确认要删除下面这个表情么？</string>
+    <string name="info_cancel_del">不是，要留着</string>
 
     <string name="finger_scissors">✌</string>
     <string name="finger_stone">✊</string>

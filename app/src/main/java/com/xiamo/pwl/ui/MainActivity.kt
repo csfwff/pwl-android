@@ -30,6 +30,7 @@ import com.ayvytr.ktx.ui.getContext
 import com.ayvytr.ktx.ui.isVisible
 import com.ayvytr.ktx.ui.onClick
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -89,6 +90,7 @@ class MainActivity : BaseActivity() {
 
     var editTopicPop:EditTopicPop?=null
     var bigImagePop:BigImagePop?=null
+    var delMemePop:DelMemePop?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -444,6 +446,7 @@ class MainActivity : BaseActivity() {
         memeRv.layoutManager = GridLayoutManager(this,5)
         memeRv.adapter = memeAdapter
 
+        memeAdapter?.addChildClickViewIds(R.id.closeImg)
         memeAdapter?.setOnItemClickListener { adapter, view, position ->
             if(position == 0){
                 //选择文件图片
@@ -460,6 +463,33 @@ class MainActivity : BaseActivity() {
                 content = content.insert(selStart,"![图片表情](${item})")
                 contentEt.text = content
                 contentEt.setSelection(selStart+item.length+9)
+            }
+        }
+        memeAdapter?.setOnItemChildClickListener { adapter, view, position ->
+            when(view.id){
+                R.id.closeImg->{
+                    if(delMemePop==null){
+                        delMemePop = DelMemePop(this)
+                        delMemePop!!.setOnConfirmListener {
+                            //确认删除
+                            var memeList = mutableListOf<String>()
+                            memeAdapter?.data?.let { memeList.addAll(it) }
+                            if(memeList.isNotEmpty()){
+                                memeList.removeAt(position)
+                                memeList.removeAt(0)
+                                memeList.removeAt(0)
+                            }
+                            RequestUtil.getInstance().syncMeme(this,memeList,{
+                                //删除成功
+                                toast(R.string.toast_success)
+                                memeAdapter?.removeAt(position)
+                            },{
+                                toast(it)
+                            })
+                        }
+                    }
+                    delMemePop?.showImage(adapter.getItem(position) as String,position)
+                }
             }
         }
 
