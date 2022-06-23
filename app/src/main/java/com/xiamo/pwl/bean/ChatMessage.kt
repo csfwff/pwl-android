@@ -23,6 +23,8 @@ class ChatMessage : MultiItemEntity {
     var got:String?=null
     var users:List<User>?=null
     var redPackMsg:RedPackMsg?=null
+    var newDiscuss:String?=null
+    var whoChanged:String?=null
     override val itemType: Int
         get() = when(type){
             "msg"->MSG_TYPE_MSG
@@ -32,6 +34,7 @@ class ChatMessage : MultiItemEntity {
             "redPacketStatus"-> MSG_TYPE_REDPACK_STATUS
             "msgMine"-> MSG_TYPE_MSG_MINE
             "redPacketMine"-> MSG_TYPE_REDPACK_MINE
+            "discussChanged"->MSG_TYPE_CHANGE_DISCUSS
             else->MSG_TYPE_DEFAULT
         }
 }

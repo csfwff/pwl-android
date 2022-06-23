@@ -9,10 +9,12 @@
     <string name="hint_redpack_point_1">一个包塞多少积分</string>
     <string name="hint_redpack_num">分几个包来着？</string>
     <string name="hint_redpack_info">红包上写点啥吧</string>
+    <string name="hint_topic">新话题</string>
 
     <string name="btn_login">登录</string>
     <string name="btn_send">biu~</string>
     <string name="btn_send_redpack">千金散尽~</string>
+    <string name="btn_confirm">就这样吧~</string>
 
     <string name="toast_net_err">你小子断网了吧……</string>
     <string name="toast_user">你得告诉我用户名……</string>
@@ -23,11 +25,15 @@
     <string name="toast_say_something">说点什么吧~</string>
     <string name="toast_unauth">登录过期了，少侠重新登录吧</string>
     <string name="toast_specify">总得告诉我发给谁吧~</string>
+    <string name="toast_topic">新话题呢？</string>
 
     <string name="info_send_redpack">发红包</string>
     <string name="info_cancel_redpack">穷，算了吧</string>
     <string name="info_zero">0溢事件</string>
     <string name="info_max">老王的认可</string>
+    <string name="info_edit_topic">编辑话题</string>
+    <string name="info_edit_topic_detail">修改话题需要16积分，将自动从账户中扣除；最大长度16字符，不合法字符将被自动过滤。</string>
+    <string name="info_topic_cancel">算了，不改了</string>
 
     <string name="finger_scissors">✌</string>
     <string name="finger_stone">✊</string>
@@ -51,6 +57,8 @@
 
     <string name="drawer_set">设置</string>
     <string name="drawer_logout">退出登录</string>
+
+    <string name="cha">×</string>
 
 
 </resources>

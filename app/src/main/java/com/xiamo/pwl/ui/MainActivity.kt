@@ -82,6 +82,8 @@ class MainActivity : BaseActivity() {
     var cameraResult: ActivityResultLauncher<Uri>?=null
     var imageSaveUri : Uri? = null
 
+    var editTopicPop:EditTopicPop?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -138,6 +140,10 @@ class MainActivity : BaseActivity() {
             toast(R.string.toast_say_something)
             return
         }
+      if(topicLl.visibility==View.VISIBLE){
+            var topic = topicTv.text
+            content += "\n*`# ${topic.subSequence(1,topic.length-1)} #`*"
+        }
 
         sendBtn.startAnimation()
         RequestUtil.getInstance().sendMsg(this, content, {
@@ -146,6 +152,7 @@ class MainActivity : BaseActivity() {
                 Color.parseColor("#3b3e43"),
                 BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher)
             )
+            topicLl.visibility = View.INVISIBLE
             sendBtn.revertAnimation()
         }, {
             toast(it)
@@ -197,6 +204,33 @@ class MainActivity : BaseActivity() {
             }
             sendRedpackPop?.setUser(userAdapter?.data!!)?.showPopupWindow()
         }
+
+        discussTv.onClick{
+            topicLl.visibility = View.VISIBLE
+            topicTv.text = discussTv.text
+        }
+
+        discussTv.setOnLongClickListener {
+            if(editTopicPop==null){
+                editTopicPop = EditTopicPop(this)
+                editTopicPop!!.setOnConfirmListener {
+                    RequestUtil.getInstance().sendMsg(this, "[setdiscuss]${it}[/setdiscuss]", {
+
+                    }, { result ->
+                        toast(result)
+                    })
+                }
+            }
+            editTopicPop?.showPopupWindow()
+            true
+        }
+
+        //话题弹窗
+        topicLl.onClick {
+            topicLl.visibility = View.INVISIBLE
+        }
+
+
     }
 
     fun initKeyboard(){
@@ -268,6 +302,7 @@ class MainActivity : BaseActivity() {
                     "revoke" -> revokeMsg(msg)
                     "online" -> dealOnline(msg)
                     "redPacketStatus" -> addDanmu(msg)
+                    "discussChanged"-> changeDiscuss(msg)
                 }
 
             }
@@ -332,6 +367,14 @@ class MainActivity : BaseActivity() {
             it.oId == msg.oId
         }
         chatMsgAdapter?.notifyDataSetChanged()
+    }
+
+    /**
+     * 话题修改
+     * @param msg ChatMessage
+     */
+    fun changeDiscuss(msg: ChatMessage){
+        discussTv.text = "#${msg.newDiscuss}#"
     }
 
     /**

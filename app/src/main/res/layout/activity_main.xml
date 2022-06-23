@@ -60,6 +60,34 @@
             android:layout_marginTop="@dimen/_40dp"
             android:layout_height="80dp"
             />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/topicLl"
+            android:paddingHorizontal="6dp"
+            android:layout_margin="4dp"
+            android:paddingVertical="2dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:gravity="center_vertical"
+            android:layout_gravity="bottom"
+            android:background="@drawable/bg_topic"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                tools:text="暂无"
+                android:textColor="@color/white"
+                android:id="@+id/topicTv"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginLeft="6dp"
+                android:layout_height="wrap_content"
+                android:text="@string/cha"/>
+
+        </LinearLayout>
 
     </FrameLayout>
     <LinearLayout

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_48dp"
+        android:layout_marginRight="@dimen/_48dp"
+        android:background="@drawable/bg_send_redpack"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_send_redpack_top"
+            android:gravity="center"
+            android:padding="@dimen/_8dp"
+            android:text="@string/info_edit_topic"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/_15sp"
+            android:textColor="@color/tv_3"
+            android:layout_marginHorizontal="@dimen/_8dp"
+            android:text="@string/info_edit_topic_detail"
+            android:layout_height="wrap_content"/>
+
+
+        <EditText
+            android:id="@+id/infoEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="@dimen/_8dp"
+            android:hint="@string/hint_topic"
+            android:textSize="@dimen/_14sp" />
+
+
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+            android:id="@+id/sendBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_12dp"
+            android:text="@string/btn_confirm"
+            android:textColor="@color/white"
+            android:theme="@style/PwlButton" />
+
+        <TextView
+            android:id="@+id/cancelTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/_12dp"
+            android:padding="5dp"
+            android:text="@string/info_topic_cancel" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
