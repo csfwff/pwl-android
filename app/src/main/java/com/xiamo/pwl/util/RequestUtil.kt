@@ -308,21 +308,23 @@ class RequestUtil private constructor() {
                                     }else{
                                         it.type = "msg"
                                     }
-                                }else if(it.content!!.isJsonObject){
-                                    var redpack = gson.fromJson(it.content,RedPackMsg::class.java)
-                                    it.redPackMsg = redpack
-                                    if (it.userName== USERNAME){
-                                        it.type = "redPacketMine"
-                                    }else{
-                                        it.type = "redPacket"
-                                    }
-                                }else{
+                                }
+//                                else if(it.content!!.isJsonObject){
+//                                    var redpack = gson.fromJson(it.content,RedPackMsg::class.java)
+//                                    it.redPackMsg = redpack
+//                                    if (it.userName== USERNAME){
+//                                        it.type = "redPacketMine"
+//                                    }else{
+//                                        it.type = "redPacket"
+//                                    }
+//                                }
+                                else{
                                     if (it.userName== USERNAME){
                                         it.type = "msgMine"
                                     }else{
                                         it.type = "msg"
                                     }
-                                    it.md = it.content!!.asString
+                                    it.md = it.content!!
                                 }
                             }
                             list.reverse()
@@ -364,21 +366,23 @@ class RequestUtil private constructor() {
                                     }else{
                                         it.type = "msg"
                                     }
-                                }else if(it.content!!.isJsonObject){
-                                    var redpack = gson.fromJson(it.content,RedPackMsg::class.java)
-                                    it.redPackMsg = redpack
-                                    if (it.userName== USERNAME){
-                                        it.type = "redPacketMine"
-                                    }else{
-                                        it.type = "redPacket"
-                                    }
-                                }else{
+                                }
+//                                else if(it.content!!.isJsonObject){
+//                                    var redpack = gson.fromJson(it.content,RedPackMsg::class.java)
+//                                    it.redPackMsg = redpack
+//                                    if (it.userName== USERNAME){
+//                                        it.type = "redPacketMine"
+//                                    }else{
+//                                        it.type = "redPacket"
+//                                    }
+//                                }
+                                else{
                                     if (it.userName== USERNAME){
                                         it.type = "msgMine"
                                     }else{
                                         it.type = "msg"
                                     }
-                                    it.md = it.content!!.asString
+                                    it.md = it.content!!
                                 }
                             }
                             list.reverse()

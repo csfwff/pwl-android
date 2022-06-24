@@ -14,7 +14,7 @@ class ChatMessage : MultiItemEntity {
     var time:String?=null
     var userName:String?=null
     var type:String?=null
-    var content:JsonElement?=null
+    var content:String?=null
     var discussing:String?=null
     var onlineChatCnt:String?=null
     var whoGot:String?=null
