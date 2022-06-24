@@ -3,6 +3,7 @@ package com.xiamo.pwl.ui
 
 
 import android.content.ContentValues
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
@@ -37,16 +38,14 @@ import com.google.gson.reflect.TypeToken
 import com.gyf.immersionbar.ktx.immersionBar
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.xiamo.pwl.R
 import kotlinx.android.synthetic.main.activity_main.*
 import com.rabtman.wsmanager.WsManager
 import com.rabtman.wsmanager.listener.WsStatusListener
 import com.xiamo.pwl.bean.*
 import com.xiamo.pwl.common.*
-import com.xiamo.pwl.util.FastBlurUtil
-import com.xiamo.pwl.util.HeadImgUtils
-import com.xiamo.pwl.util.RequestUtil
-import com.xiamo.pwl.util.UriUtils
+import com.xiamo.pwl.util.*
 
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -105,6 +104,26 @@ class MainActivity : BaseActivity() {
         drawer?.apply {
             itemAdapter.add(PrimaryDrawerItem().withName(R.string.drawer_set))
             itemAdapter.add(PrimaryDrawerItem().withName(R.string.drawer_logout))
+        }
+
+        drawer?.onDrawerItemClickListener = object :Drawer.OnDrawerItemClickListener{
+            override fun onItemClick(
+                view: View?,
+                position: Int,
+                drawerItem: IDrawerItem<*>
+            ): Boolean {
+                when(position){
+                    2->{  //退出登录
+                        val preferences by lazy { SharedPreferencesUtils(this@MainActivity) }
+                        preferences.apiKey=""
+                        val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        this@MainActivity.startActivity(intent)
+                    }
+                }
+                return true
+            }
+
         }
 
 
