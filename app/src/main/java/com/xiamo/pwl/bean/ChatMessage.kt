@@ -1,6 +1,7 @@
 package com.xiamo.pwl.bean
 
 import com.chad.library.adapter.base.entity.MultiItemEntity
+import com.google.gson.JsonElement
 import com.xiamo.pwl.common.*
 
 class ChatMessage : MultiItemEntity {
@@ -13,7 +14,7 @@ class ChatMessage : MultiItemEntity {
     var time:String?=null
     var userName:String?=null
     var type:String?=null
-    var content:String?=null
+    var content:JsonElement?=null
     var discussing:String?=null
     var onlineChatCnt:String?=null
     var whoGot:String?=null
@@ -55,5 +56,5 @@ class RedPackMsg{
     var count:String?=null
     var type:String?=null
     var got:String?=null
-    var who:List<String>?=null
+    var who:List<Who>?=null
 }

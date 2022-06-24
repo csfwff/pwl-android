@@ -13,6 +13,8 @@ const val URL_GET_USER_INFO = "/user/"
 const val URL_GET_USER_CLOUD = "/api/cloud/get"
 const val URL_UPLOAD_IMG = "/upload"
 const val URL_SYNC_USER_CLOUD = "/api/cloud/sync"
+const val URL_GET_HISTORY_MSG = "/chat-room/getMessage"
+const val URL_GET_HISTORY_MSG_OLD = "/chat-room/more"
 
 val MSG_TYPE_DEFAULT = 0
 val MSG_TYPE_MSG = 1

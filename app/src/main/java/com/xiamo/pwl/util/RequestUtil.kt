@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import com.ayvytr.ktx.context.toast
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.callback.StringCallback
 import com.lzy.okgo.model.Response
@@ -286,6 +287,117 @@ class RequestUtil private constructor() {
             })
     }
 
+    fun getHistoryMsg(
+        context: Context,
+        oId: String,
+        callback: ((MutableList<ChatMessage>) -> Unit)? = null,
+        errCallback: ((String) -> Unit)? = null
+    ){
+        OkGo.get<String>("$BASE_URL$URL_GET_HISTORY_MSG?apiKey=$API_KEY&oId=$oId&mode=1&size=25&type=md")
+            .execute(object : StringCallback() {
+                override fun onSuccess(response: Response<String>?) {
+                    val baseBean  = gson.fromJson(response?.body(),BaseBean::class.java)
+                    when {
+                        baseBean.code==0 -> {
+                           var list:MutableList<ChatMessage> = gson.fromJson(baseBean.data,object :TypeToken<MutableList<ChatMessage>>() {}.type)
+                            list.forEach {
+                                if(it.content==null){
+                                    it.md = ""
+                                    if (it.userName== USERNAME){
+                                        it.type = "msgMine"
+                                    }else{
+                                        it.type = "msg"
+                                    }
+                                }else if(it.content!!.isJsonObject){
+                                    var redpack = gson.fromJson(it.content,RedPackMsg::class.java)
+                                    it.redPackMsg = redpack
+                                    if (it.userName== USERNAME){
+                                        it.type = "redPacketMine"
+                                    }else{
+                                        it.type = "redPacket"
+                                    }
+                                }else{
+                                    if (it.userName== USERNAME){
+                                        it.type = "msgMine"
+                                    }else{
+                                        it.type = "msg"
+                                    }
+                                    it.md = it.content!!.asString
+                                }
+                            }
+                            list.reverse()
+                            callback?.invoke(list)
+                        }
+                        baseBean.msg=="401" -> {
+                            toLogin(context)
+                        }
+                        else -> {
+                            errCallback?.invoke(baseBean.msg.toString())
+                        }
+                    }
+                }
+                override fun onError(response: Response<String>?) {
+                    super.onError(response)
+                    errCallback?.invoke(context.getString(R.string.toast_net_err))
+                }
+            })
+    }
+
+
+    fun getHistoryMsgOld(
+        context: Context,
+        callback: ((MutableList<ChatMessage>) -> Unit)? = null,
+        errCallback: ((String) -> Unit)? = null
+    ){
+        OkGo.get<String>("$BASE_URL$URL_GET_HISTORY_MSG_OLD?apiKey=$API_KEY&page=1&type=md")
+            .execute(object : StringCallback() {
+                override fun onSuccess(response: Response<String>?) {
+                    val baseBean  = gson.fromJson(response?.body(),BaseBean::class.java)
+                    when {
+                        baseBean.code==0 -> {
+                            var list:MutableList<ChatMessage> = gson.fromJson(baseBean.data,object :TypeToken<MutableList<ChatMessage>>() {}.type)
+                            list.forEach {
+                                if(it.content==null){
+                                    it.md = ""
+                                    if (it.userName== USERNAME){
+                                        it.type = "msgMine"
+                                    }else{
+                                        it.type = "msg"
+                                    }
+                                }else if(it.content!!.isJsonObject){
+                                    var redpack = gson.fromJson(it.content,RedPackMsg::class.java)
+                                    it.redPackMsg = redpack
+                                    if (it.userName== USERNAME){
+                                        it.type = "redPacketMine"
+                                    }else{
+                                        it.type = "redPacket"
+                                    }
+                                }else{
+                                    if (it.userName== USERNAME){
+                                        it.type = "msgMine"
+                                    }else{
+                                        it.type = "msg"
+                                    }
+                                    it.md = it.content!!.asString
+                                }
+                            }
+                            list.reverse()
+                            callback?.invoke(list)
+                        }
+                        baseBean.msg=="401" -> {
+                            toLogin(context)
+                        }
+                        else -> {
+                            errCallback?.invoke(baseBean.msg.toString())
+                        }
+                    }
+                }
+                override fun onError(response: Response<String>?) {
+                    super.onError(response)
+                    errCallback?.invoke(context.getString(R.string.toast_net_err))
+                }
+            })
+    }
 
 
 

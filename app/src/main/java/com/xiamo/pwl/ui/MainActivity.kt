@@ -138,6 +138,7 @@ class MainActivity : BaseActivity() {
 
         getUserInfo()
         getUserMeme()
+        getHistoryMsgOld()
 
 
     }
@@ -275,6 +276,11 @@ class MainActivity : BaseActivity() {
                 }
             }
         })
+
+        chatMsgAdapter?.upFetchModule?.isUpFetchEnable = true
+        chatMsgAdapter?.upFetchModule?.setOnUpFetchListener {
+            getHistoryMsg()
+        }
 
 
         chatMsgAdapter?.addChildClickViewIds(
@@ -610,6 +616,28 @@ class MainActivity : BaseActivity() {
             toast(it)
         })
 
+    }
+
+    fun getHistoryMsg(){
+        if(chatMsgAdapter!!.itemCount==0){
+            chatMsgAdapter?.upFetchModule?.isUpFetching = false
+            return
+        }
+        var oId = chatMsgAdapter!!.getItem(0).oId
+        RequestUtil.getInstance().getHistoryMsg(this,oId!!,{
+            chatMsgAdapter?.addData(0,it)
+        },{
+            toast(it)
+        })
+    }
+
+    fun getHistoryMsgOld(){
+        RequestUtil.getInstance().getHistoryMsgOld(this,{
+            chatMsgAdapter?.addData(0,it)
+            msgRv.scrollToPosition(msgList.size - 1)
+        },{
+            toast(it)
+        })
     }
 
 

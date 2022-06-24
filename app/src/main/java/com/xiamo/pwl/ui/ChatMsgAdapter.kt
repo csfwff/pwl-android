@@ -12,6 +12,7 @@ import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
+import com.chad.library.adapter.base.module.UpFetchModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.xiamo.pwl.R
 import com.xiamo.pwl.bean.ChatMessage
@@ -25,7 +26,7 @@ import io.noties.markwon.image.glide.GlideImagesPlugin
 import io.noties.markwon.image.glide.GlideImagesPlugin.GlideStore
 
 
-class ChatMsgAdapter(msgList: MutableList<ChatMessage>): BaseMultiItemQuickAdapter<ChatMessage, BaseViewHolder>(msgList) {
+class ChatMsgAdapter(msgList: MutableList<ChatMessage>): BaseMultiItemQuickAdapter<ChatMessage, BaseViewHolder>(msgList),UpFetchModule {
 
     var markdown:Markwon?=null
 
