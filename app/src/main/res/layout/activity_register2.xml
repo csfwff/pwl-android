@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:id="@+id/containFl"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.LoginActivity">
+    tools:context=".ui.activity.Register2Activity">
+
     <ImageView
         android:layout_width="match_parent"
         android:scaleType="centerCrop"
@@ -23,32 +24,22 @@
 
         <ImageView
             android:layout_width="96dp"
-            android:layout_marginTop="96dp"
+            android:layout_marginTop="70dp"
             android:adjustViewBounds="true"
             android:src="@mipmap/ic_launcher"
-            android:layout_marginBottom="64dp"
+            android:layout_marginBottom="16dp"
             android:layout_height="96dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/info_left_one_step"
+            android:layout_marginBottom="24dp"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:layout_height="wrap_content"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             app:boxBackgroundMode="outline"
-            android:layout_height="wrap_content">
-            <EditText
-                android:layout_width="match_parent"
-                android:background="@null"
-                android:inputType="text"
-                android:id="@+id/userEt"
-                android:lines="1"
-                android:digits="1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM@."
-                android:hint="@string/hint_user_name"
-                android:layout_height="wrap_content"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            app:boxBackgroundMode="outline"
-            android:layout_marginTop="18dp"
             app:passwordToggleEnabled="true"
             android:layout_height="wrap_content">
             <EditText
@@ -70,30 +61,48 @@
             <EditText
                 android:layout_width="match_parent"
                 android:background="@null"
-                android:inputType="number"
-                android:id="@+id/mfaEt"
+                android:inputType="text"
+                android:id="@+id/inviteEt"
                 android:lines="1"
-                android:hint="@string/hint_mfa"
+                android:hint="@string/hint_invite"
                 android:layout_height="wrap_content"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="18dp"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:layout_width="0dp"
+                android:text="@string/role_hacker"
+                android:checked="true"
+                android:id="@+id/hackerRb"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:id="@+id/painterRb"
+                android:text="@string/role_painter"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+
         <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:layout_width="match_parent"
             android:layout_marginTop="18dp"
-            android:text="@string/btn_login"
+            android:text="@string/btn_finish_register"
             android:theme="@style/PwlButton"
-            android:id="@+id/loginBtn"
+            android:id="@+id/registerBtn"
             android:textColor="@color/white"
             android:layout_height="56dp"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_marginTop="8dp"
-            android:id="@+id/toRegisterTv"
-            android:text="@string/info_to_register"
+            android:id="@+id/toLoginTv"
+            android:text="@string/info_back_to_login"
             android:layout_height="wrap_content"/>
-
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

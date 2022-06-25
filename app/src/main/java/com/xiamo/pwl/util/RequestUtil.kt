@@ -36,10 +36,10 @@ class RequestUtil private constructor() {
     }
 
 
-    fun toLogin(context: Context){
+    fun toLogin(context: Context) {
         context.toast(R.string.toast_unauth)
         val preferences by lazy { SharedPreferencesUtils(context) }
-        preferences.apiKey=""
+        preferences.apiKey = ""
         val intent = Intent(context, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         context.startActivity(intent)
@@ -48,13 +48,13 @@ class RequestUtil private constructor() {
     //登录
     fun login(
         context: Context,
-        username:String,
-        password:String,
-        mfaCode:String,
+        username: String,
+        password: String,
+        mfaCode: String,
         callback: ((String) -> Unit)? = null,
         errCallback: ((String) -> Unit)? = null
-    ){
-        var params = HashMap<String,String>()
+    ) {
+        var params = HashMap<String, String>()
         params["nameOrEmail"] = username
         params["mfaCode"] = mfaCode
         params["userPassword"] = StringToMD5.stringToMD5(password)
@@ -64,12 +64,13 @@ class RequestUtil private constructor() {
             .execute(object : StringCallback() {
                 override fun onSuccess(response: Response<String>?) {
                     val baseBean = gson.fromJson(response?.body(), BaseBean::class.java)
-                    if(baseBean.code==0){
+                    if (baseBean.code == 0) {
                         callback?.invoke(baseBean.Key!!)
-                    }else{
-                        errCallback?.invoke(baseBean.msg+"")
+                    } else {
+                        errCallback?.invoke(baseBean.msg + "")
                     }
                 }
+
                 override fun onError(response: Response<String>?) {
                     super.onError(response)
                     errCallback?.invoke(context.getString(R.string.toast_net_err))
@@ -79,11 +80,11 @@ class RequestUtil private constructor() {
 
     fun sendMsg(
         context: Context,
-        content:String,
+        content: String,
         callback: (() -> Unit)? = null,
         errCallback: ((String) -> Unit)? = null
-    ){
-        var params = HashMap<String,String>()
+    ) {
+        var params = HashMap<String, String>()
         params["apiKey"] = API_KEY
         params["content"] = content
         OkGo.post<String>(BASE_URL + URL_SEND_MSG)
@@ -92,7 +93,7 @@ class RequestUtil private constructor() {
                 override fun onSuccess(response: Response<String>?) {
                     val baseBean = gson.fromJson(response?.body(), BaseBean::class.java)
                     when {
-                        baseBean.code==0 -> {
+                        baseBean.code == 0 -> {
                             callback?.invoke()
                         }
                         baseBean.msg == "401" -> {
@@ -100,10 +101,11 @@ class RequestUtil private constructor() {
                             toLogin(context)
                         }
                         else -> {
-                            errCallback?.invoke(baseBean.msg+"")
+                            errCallback?.invoke(baseBean.msg + "")
                         }
                     }
                 }
+
                 override fun onError(response: Response<String>?) {
                     super.onError(response)
                     errCallback?.invoke(context.getString(R.string.toast_net_err))
@@ -113,15 +115,15 @@ class RequestUtil private constructor() {
 
     fun openRedpack(
         context: Context,
-        oId:String,
-        gesture:Int?=null,
+        oId: String,
+        gesture: Int? = null,
         callback: ((OpenRedpack) -> Unit)? = null,
         errCallback: ((String) -> Unit)? = null
-    ){
-        var params = HashMap<String,String>()
+    ) {
+        var params = HashMap<String, String>()
         params["apiKey"] = API_KEY
         params["oId"] = oId
-        if(gesture!=null){
+        if (gesture != null) {
             params["gesture"] = gesture.toString()
         }
         OkGo.post<String>(BASE_URL + URL_OPEN_REDPACK)
@@ -129,18 +131,19 @@ class RequestUtil private constructor() {
             .execute(object : StringCallback() {
                 override fun onSuccess(response: Response<String>?) {
                     try {
-                        val openRedpack = gson.fromJson(response?.body(),OpenRedpack::class.java)
-                        if(openRedpack.code==null){
+                        val openRedpack = gson.fromJson(response?.body(), OpenRedpack::class.java)
+                        if (openRedpack.code == null) {
                             callback?.invoke(openRedpack)
-                        }else{
+                        } else {
                             errCallback?.invoke(openRedpack.msg.toString())
                         }
 
 
-                    }catch (e:Exception){
+                    } catch (e: Exception) {
                         errCallback?.invoke(e.message.toString())
                     }
                 }
+
                 override fun onError(response: Response<String>?) {
                     super.onError(response)
                     errCallback?.invoke(context.getString(R.string.toast_net_err))
@@ -150,20 +153,21 @@ class RequestUtil private constructor() {
 
     fun getUserInfo(
         context: Context,
-        userId:String,
+        userId: String,
         callback: ((UserInfo) -> Unit)? = null,
         errCallback: ((String) -> Unit)? = null
-    ){
+    ) {
         OkGo.get<String>("$BASE_URL$URL_GET_USER_INFO$userId?apiKey=$API_KEY")
             .execute(object : StringCallback() {
                 override fun onSuccess(response: Response<String>?) {
                     try {
-                        val userInfo = gson.fromJson(response?.body(),UserInfo::class.java)
+                        val userInfo = gson.fromJson(response?.body(), UserInfo::class.java)
                         callback?.invoke(userInfo)
-                    }catch (e:Exception){
+                    } catch (e: Exception) {
                         errCallback?.invoke(e.message.toString())
                     }
                 }
+
                 override fun onError(response: Response<String>?) {
                     super.onError(response)
                     errCallback?.invoke(context.getString(R.string.toast_net_err))
@@ -176,8 +180,8 @@ class RequestUtil private constructor() {
         context: Context,
         callback: ((UserMeme) -> Unit)? = null,
         errCallback: ((String) -> Unit)? = null
-    ){
-        var params = HashMap<String,String>()
+    ) {
+        var params = HashMap<String, String>()
         params["apiKey"] = API_KEY
         params["gameId"] = "emojis"
 
@@ -186,9 +190,9 @@ class RequestUtil private constructor() {
             .execute(object : StringCallback() {
                 override fun onSuccess(response: Response<String>?) {
                     try {
-                        val userMeme = gson.fromJson(response?.body(),UserMeme::class.java)
+                        val userMeme = gson.fromJson(response?.body(), UserMeme::class.java)
                         when {
-                            userMeme.code==0 -> {
+                            userMeme.code == 0 -> {
                                 callback?.invoke(userMeme)
                             }
                             userMeme.msg == "401" -> {
@@ -196,13 +200,14 @@ class RequestUtil private constructor() {
                                 toLogin(context)
                             }
                             else -> {
-                                errCallback?.invoke(userMeme.msg+"")
+                                errCallback?.invoke(userMeme.msg + "")
                             }
                         }
-                    }catch (e:Exception){
+                    } catch (e: Exception) {
                         errCallback?.invoke(e.message.toString())
                     }
                 }
+
                 override fun onError(response: Response<String>?) {
                     super.onError(response)
                     errCallback?.invoke(context.getString(R.string.toast_net_err))
@@ -215,36 +220,37 @@ class RequestUtil private constructor() {
         file: File,
         callback: ((String) -> Unit)? = null,
         errCallback: ((String) -> Unit)? = null
-    ){
+    ) {
         var list = listOf(file)
         OkGo.post<String>("$BASE_URL$URL_UPLOAD_IMG?apiKey=$API_KEY")
-            .addFileParams("file[]",list)
+            .addFileParams("file[]", list)
             .execute(object : StringCallback() {
                 override fun onSuccess(response: Response<String>?) {
                     try {
-                        val baseBean  = gson.fromJson(response?.body(),BaseBean::class.java)
-                        if(baseBean.code==0){
-                            val uploadResult = gson.fromJson(baseBean.data,UploadFile::class.java)
-                            if(uploadResult.errFiles.isNullOrEmpty()){
+                        val baseBean = gson.fromJson(response?.body(), BaseBean::class.java)
+                        if (baseBean.code == 0) {
+                            val uploadResult = gson.fromJson(baseBean.data, UploadFile::class.java)
+                            if (uploadResult.errFiles.isNullOrEmpty()) {
                                 //成功
                                 var succMap = uploadResult.succMap
-                                if(succMap!=null){
+                                if (succMap != null) {
                                     var url = succMap.asJsonObject.get(file.name).asString
                                     callback?.invoke(url)
-                                }else{
+                                } else {
                                     errCallback?.invoke("上传失败")
                                 }
-                            }else{
+                            } else {
                                 errCallback?.invoke("上传失败")
                             }
-                        }else{
+                        } else {
                             errCallback?.invoke(baseBean.msg.toString())
                         }
 
-                    }catch (e:Exception){
+                    } catch (e: Exception) {
                         errCallback?.invoke(e.message.toString())
                     }
                 }
+
                 override fun onError(response: Response<String>?) {
                     super.onError(response)
                     errCallback?.invoke(context.getString(R.string.toast_net_err))
@@ -257,22 +263,22 @@ class RequestUtil private constructor() {
         memeList: MutableList<String>,
         callback: (() -> Unit)? = null,
         errCallback: ((String) -> Unit)? = null
-    ){
+    ) {
 
-        var params = HashMap<String,String>()
+        var params = HashMap<String, String>()
         params["apiKey"] = API_KEY
         params["gameId"] = "emojis"
         params["data"] = gson.toJson(memeList)
         OkGo.post<String>("$BASE_URL$URL_SYNC_USER_CLOUD")
             .upJson(gson.toJson(params))
-            .execute(object : StringCallback(){
+            .execute(object : StringCallback() {
                 override fun onSuccess(response: Response<String>?) {
-                    val baseBean  = gson.fromJson(response?.body(),BaseBean::class.java)
+                    val baseBean = gson.fromJson(response?.body(), BaseBean::class.java)
                     when {
-                        baseBean.code==0 -> {
+                        baseBean.code == 0 -> {
                             callback?.invoke()
                         }
-                        baseBean.msg=="401" -> {
+                        baseBean.msg == "401" -> {
                             toLogin(context)
                         }
                         else -> {
@@ -280,6 +286,7 @@ class RequestUtil private constructor() {
                         }
                     }
                 }
+
                 override fun onError(response: Response<String>?) {
                     super.onError(response)
                     errCallback?.invoke(context.getString(R.string.toast_net_err))
@@ -292,45 +299,46 @@ class RequestUtil private constructor() {
         oId: String,
         callback: ((MutableList<ChatMessage>) -> Unit)? = null,
         errCallback: ((String) -> Unit)? = null
-    ){
+    ) {
         OkGo.get<String>("$BASE_URL$URL_GET_HISTORY_MSG?apiKey=$API_KEY&oId=$oId&mode=1&size=25&type=md")
             .execute(object : StringCallback() {
                 override fun onSuccess(response: Response<String>?) {
-                    val baseBean  = gson.fromJson(response?.body(),BaseBean::class.java)
+                    val baseBean = gson.fromJson(response?.body(), BaseBean::class.java)
                     when {
-                        baseBean.code==0 -> {
-                           var list:MutableList<ChatMessage> = gson.fromJson(baseBean.data,object :TypeToken<MutableList<ChatMessage>>() {}.type)
+                        baseBean.code == 0 -> {
+                            var list: MutableList<ChatMessage> = gson.fromJson(baseBean.data,
+                                object : TypeToken<MutableList<ChatMessage>>() {}.type)
                             list.forEach {
-                                if(it.content==null){
+                                if (it.content == null) {
                                     it.md = ""
-                                    if (it.userName== USERNAME){
+                                    if (it.userName == USERNAME) {
                                         it.type = "msgMine"
-                                    }else{
+                                    } else {
                                         it.type = "msg"
                                     }
-                                }
-//                                else if(it.content!!.isJsonObject){
-//                                    var redpack = gson.fromJson(it.content,RedPackMsg::class.java)
-//                                    it.redPackMsg = redpack
-//                                    if (it.userName== USERNAME){
-//                                        it.type = "redPacketMine"
-//                                    }else{
-//                                        it.type = "redPacket"
-//                                    }
-//                                }
-                                else{
-                                    if (it.userName== USERNAME){
-                                        it.type = "msgMine"
-                                    }else{
-                                        it.type = "msg"
+                                } else {
+                                    try {
+                                        var redpack = gson.fromJson(it.content, RedPackMsg::class.java)
+                                        it.redPackMsg = redpack
+                                        if (it.userName == USERNAME) {
+                                            it.type = "redPacketMine"
+                                        } else {
+                                            it.type = "redPacket"
+                                        }
+                                    } catch (e: Exception) {
+                                        it.md = it.content
+                                        if (it.userName == USERNAME) {
+                                            it.type = "msgMine"
+                                        } else {
+                                            it.type = "msg"
+                                        }
                                     }
-                                    it.md = it.content!!
                                 }
                             }
                             list.reverse()
                             callback?.invoke(list)
                         }
-                        baseBean.msg=="401" -> {
+                        baseBean.msg == "401" -> {
                             toLogin(context)
                         }
                         else -> {
@@ -338,6 +346,7 @@ class RequestUtil private constructor() {
                         }
                     }
                 }
+
                 override fun onError(response: Response<String>?) {
                     super.onError(response)
                     errCallback?.invoke(context.getString(R.string.toast_net_err))
@@ -350,45 +359,46 @@ class RequestUtil private constructor() {
         context: Context,
         callback: ((MutableList<ChatMessage>) -> Unit)? = null,
         errCallback: ((String) -> Unit)? = null
-    ){
+    ) {
         OkGo.get<String>("$BASE_URL$URL_GET_HISTORY_MSG_OLD?apiKey=$API_KEY&page=1&type=md")
             .execute(object : StringCallback() {
                 override fun onSuccess(response: Response<String>?) {
-                    val baseBean  = gson.fromJson(response?.body(),BaseBean::class.java)
+                    val baseBean = gson.fromJson(response?.body(), BaseBean::class.java)
                     when {
-                        baseBean.code==0 -> {
-                            var list:MutableList<ChatMessage> = gson.fromJson(baseBean.data,object :TypeToken<MutableList<ChatMessage>>() {}.type)
+                        baseBean.code == 0 -> {
+                            var list: MutableList<ChatMessage> = gson.fromJson(baseBean.data,
+                                object : TypeToken<MutableList<ChatMessage>>() {}.type)
                             list.forEach {
-                                if(it.content==null){
+                                if (it.content == null) {
                                     it.md = ""
-                                    if (it.userName== USERNAME){
+                                    if (it.userName == USERNAME) {
                                         it.type = "msgMine"
-                                    }else{
+                                    } else {
                                         it.type = "msg"
                                     }
-                                }
-//                                else if(it.content!!.isJsonObject){
-//                                    var redpack = gson.fromJson(it.content,RedPackMsg::class.java)
-//                                    it.redPackMsg = redpack
-//                                    if (it.userName== USERNAME){
-//                                        it.type = "redPacketMine"
-//                                    }else{
-//                                        it.type = "redPacket"
-//                                    }
-//                                }
-                                else{
-                                    if (it.userName== USERNAME){
-                                        it.type = "msgMine"
-                                    }else{
-                                        it.type = "msg"
+                                } else {
+                                    try {
+                                        var redpack = gson.fromJson(it.content, RedPackMsg::class.java)
+                                        it.redPackMsg = redpack
+                                        if (it.userName == USERNAME) {
+                                            it.type = "redPacketMine"
+                                        } else {
+                                            it.type = "redPacket"
+                                        }
+                                    } catch (e: Exception) {
+                                        it.md = it.content
+                                        if (it.userName == USERNAME) {
+                                            it.type = "msgMine"
+                                        } else {
+                                            it.type = "msg"
+                                        }
                                     }
-                                    it.md = it.content!!
                                 }
                             }
                             list.reverse()
                             callback?.invoke(list)
                         }
-                        baseBean.msg=="401" -> {
+                        baseBean.msg == "401" -> {
                             toLogin(context)
                         }
                         else -> {
@@ -396,6 +406,7 @@ class RequestUtil private constructor() {
                         }
                     }
                 }
+
                 override fun onError(response: Response<String>?) {
                     super.onError(response)
                     errCallback?.invoke(context.getString(R.string.toast_net_err))
@@ -403,6 +414,101 @@ class RequestUtil private constructor() {
             })
     }
 
+    fun getSmsCode(
+        userName: String,
+        userPhone: String,
+        captcha: String,
+        context: Context,
+        callback: (() -> Unit)? = null,
+        errCallback: ((String) -> Unit)? = null
+    ) {
+        var params = HashMap<String, String>()
+        params["userName"] = userName
+        params["userPhone"] = userPhone
+        params["captcha"] = captcha
+        OkGo.post<String>("$BASE_URL$URL_GET_SMS_CODE")
+            .upJson(gson.toJson(params))
+            .execute(object : StringCallback() {
+                override fun onSuccess(response: Response<String>?) {
+                    val baseBean = gson.fromJson(response?.body(), BaseBean::class.java)
+                    when (baseBean.code) {
+                        0 -> {
+                            callback?.invoke()
+                        }
+                        else -> {
+                            errCallback?.invoke(baseBean.msg.toString())
+                        }
+                    }
+                }
+
+                override fun onError(response: Response<String>?) {
+                    super.onError(response)
+                    errCallback?.invoke(context.getString(R.string.toast_net_err))
+                }
+            })
+    }
+
+    fun verifySmsCode(
+        smsCode: String,
+        context: Context,
+        callback: ((String) -> Unit)? = null,
+        errCallback: ((String) -> Unit)? = null
+    ) {
+        OkGo.get<String>("$BASE_URL$URL_VERIFY_SMS_CODE?code=$smsCode")
+            .execute(object : StringCallback() {
+                override fun onSuccess(response: Response<String>?) {
+                    val baseBean = gson.fromJson(response?.body(), VerifyCode::class.java)
+                    when (baseBean.code) {
+                        0 -> {
+                            callback?.invoke(baseBean.userId!!)
+                        }
+                        else -> {
+                            errCallback?.invoke(baseBean.msg.toString())
+                        }
+                    }
+                }
+
+                override fun onError(response: Response<String>?) {
+                    super.onError(response)
+                    errCallback?.invoke(context.getString(R.string.toast_net_err))
+                }
+            })
+    }
+
+    fun finishRegister(
+        pwd: String,
+        userAppRole:Int,
+        userId:String,
+        invite:String,
+        context: Context,
+        callback: (() -> Unit)? = null,
+        errCallback: ((String) -> Unit)? = null
+    ){
+        var params = HashMap<String, String>()
+        params["userAppRole"] = userAppRole.toString()
+        params["userId"] = userId
+        params["userPassword"] = StringToMD5.stringToMD5(pwd)
+        OkGo.post<String>("$BASE_URL$URL_FINISH_REGISTER?r=$invite")
+            .upJson(gson.toJson(params))
+            .execute(object : StringCallback() {
+                override fun onSuccess(response: Response<String>?) {
+                    val baseBean = gson.fromJson(response?.body(), BaseBean::class.java)
+                    when (baseBean.code) {
+                        0 -> {
+                            callback?.invoke()
+                        }
+                        else -> {
+                            errCallback?.invoke(baseBean.msg.toString())
+                        }
+                    }
+                }
+
+                override fun onError(response: Response<String>?) {
+                    super.onError(response)
+                    errCallback?.invoke(context.getString(R.string.toast_net_err))
+                }
+            })
+    }
 
 
 }

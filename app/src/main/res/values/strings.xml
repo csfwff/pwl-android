@@ -3,23 +3,40 @@
 
 
     <string name="hint_user_name">用户名/邮箱</string>
+    <string name="hint_user">用户名</string>
     <string name="hint_pwd">密码</string>
+    <string name="hint_code">验证码</string>
+    <string name="hint_phone">手机号码</string>
     <string name="hint_mfa">两步验证码</string>
+    <string name="hint_sms_code">短信验证码</string>
     <string name="hint_redpack_point">总共塞多少积分</string>
     <string name="hint_redpack_point_1">一个包塞多少积分</string>
     <string name="hint_redpack_num">分几个包来着？</string>
     <string name="hint_redpack_info">红包上写点啥吧</string>
     <string name="hint_topic">新话题</string>
+    <string name="hint_invite">邀请码</string>
 
     <string name="btn_login">登录</string>
+    <string name="btn_register">注册</string>
+    <string name="btn_finish_register">完成注册</string>
     <string name="btn_send">biu~</string>
+    <string name="btn_get_sms">获取验证码</string>
     <string name="btn_send_redpack">千金散尽~</string>
     <string name="btn_confirm">就这样吧~</string>
     <string name="btn_confirm_yes">是的</string>
 
+    <string name="role_hacker">黑客</string>
+    <string name="role_painter">画家</string>
+
+
     <string name="toast_net_err">你小子断网了吧……</string>
     <string name="toast_user">你得告诉我用户名……</string>
+    <string name="toast_user_1">想一个用户名吧</string>
+    <string name="toast_phone">有手机号才能发验证码</string>
+    <string name="toast_code">要输入验证码哟</string>
+    <string name="toast_sms_code">要输入短信验证码哟</string>
     <string name="toast_pwd">没密码我怎么登的上去嘛……</string>
+    <string name="toast_pwd_1">要设置密码的哟</string>
     <string name="toast_connect_success">连接成功</string>
     <string name="toast_connect_fail">连接失败</string>
     <string name="toast_reconnect">正在重连</string>
@@ -29,6 +46,8 @@
     <string name="toast_topic">新话题呢？</string>
     <string name="toast_success">成功</string>
     <string name="toast_add_meme">这表情已经加过了</string>
+    <string name="toast_send_success">发送成功</string>
+    <string name="toast_register_success">注册成功</string>
 
     <string name="info_send_redpack">发红包</string>
     <string name="info_cancel_redpack">穷，算了吧</string>
@@ -42,6 +61,9 @@
     <string name="info_del_meme_detail">确认要删除下面这个表情么？</string>
     <string name="info_cancel_del">不是，要留着</string>
     <string name="info_scroll_to_bottom">⇩滑到底部</string>
+    <string name="info_to_register">没有账号？点这里注册</string>
+    <string name="info_back_to_login">返回登录</string>
+    <string name="info_left_one_step">还差一步</string>
 
     <string name="finger_scissors">✌</string>
     <string name="finger_stone">✊</string>

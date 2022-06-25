@@ -39,16 +39,20 @@ class LoginActivity : AppCompatActivity() {
             login()
         }
 
+        toRegisterTv.onClick {
+            startActivity(Intent(this,RegisterActivity::class.java))
+        }
+
     }
 
     private fun login(){
         var userName = userEt.text.toString().trim()
-        if(userName.isNullOrEmpty()){
+        if(userName.isNullOrBlank()){
             toast(R.string.toast_user)
             return
         }
         var password = pwdEt.text.toString().trim()
-        if(password.isNullOrEmpty()){
+        if(password.isNullOrBlank()){
             toast(R.string.toast_pwd)
             return
         }
