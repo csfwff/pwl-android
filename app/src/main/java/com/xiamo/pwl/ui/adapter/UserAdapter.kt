@@ -1,4 +1,4 @@
-package com.xiamo.pwl.ui
+package com.xiamo.pwl.ui.adapter
 
 
 import androidx.core.content.ContextCompat

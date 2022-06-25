@@ -1,4 +1,4 @@
-package com.xiamo.pwl.ui
+package com.xiamo.pwl.ui.adapter
 
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter

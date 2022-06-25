@@ -1,4 +1,4 @@
-package com.xiamo.pwl.ui
+package com.xiamo.pwl.ui.activity
 
 
 
@@ -10,8 +10,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.os.Handler
-import android.provider.DocumentsProvider
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -19,20 +17,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import androidx.documentfile.provider.DocumentFile
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.zsmb.materialdrawerkt.builders.drawer
 import com.ayvytr.ktx.context.toast
-import com.ayvytr.ktx.ui.getContext
 import com.ayvytr.ktx.ui.isVisible
 import com.ayvytr.ktx.ui.onClick
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.listener.OnItemChildClickListener
-import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.gyf.immersionbar.ktx.immersionBar
@@ -45,6 +37,9 @@ import com.rabtman.wsmanager.WsManager
 import com.rabtman.wsmanager.listener.WsStatusListener
 import com.xiamo.pwl.bean.*
 import com.xiamo.pwl.common.*
+import com.xiamo.pwl.ui.*
+import com.xiamo.pwl.ui.adapter.*
+import com.xiamo.pwl.ui.pop.*
 import com.xiamo.pwl.util.*
 
 import okhttp3.OkHttpClient
@@ -56,7 +51,6 @@ import java.lang.Exception
 import java.util.concurrent.TimeUnit
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent.setEventListener
 import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
 import java.io.File
@@ -81,15 +75,15 @@ class MainActivity : BaseActivity() {
     var userAdapter: UserAdapter? = null
     var userList = mutableListOf<User>()
     var openRedpackPop: OpenRedpackPop? = null
-    var memeAdapter :UserMemeAdapter?=null
+    var memeAdapter : UserMemeAdapter?=null
 
     var photoResult: ActivityResultLauncher<String>?=null
     var cameraResult: ActivityResultLauncher<Uri>?=null
     var imageSaveUri : Uri? = null
 
-    var editTopicPop:EditTopicPop?=null
-    var bigImagePop:BigImagePop?=null
-    var delMemePop:DelMemePop?=null
+    var editTopicPop: EditTopicPop?=null
+    var bigImagePop: BigImagePop?=null
+    var delMemePop: DelMemePop?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

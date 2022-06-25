@@ -1,4 +1,4 @@
-package com.xiamo.pwl.ui
+package com.xiamo.pwl.ui.activity
 
 
 import android.content.Intent
@@ -31,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
         API_KEY = preferences.apiKey!!
         if(!API_KEY.isNullOrBlank()){
             USERNAME = preferences.userName!!
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
 
@@ -62,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
             API_KEY = it
             preferences.userName = userName
             USERNAME = userName
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         },{
             toast(it)

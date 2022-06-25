@@ -1,4 +1,4 @@
-package com.xiamo.pwl.ui
+package com.xiamo.pwl.ui.pop
 
 import android.content.Context
 import android.view.View
@@ -11,9 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton
 import com.ayvytr.ktx.context.toast
 import com.ayvytr.ktx.ui.onClick
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.listener.OnItemChildClickListener
-import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.flyco.tablayout.CommonTabLayout
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
@@ -22,6 +19,7 @@ import com.xiamo.pwl.R
 import com.xiamo.pwl.bean.RedpackSend
 import com.xiamo.pwl.bean.RedpackTabEntity
 import com.xiamo.pwl.bean.User
+import com.xiamo.pwl.ui.adapter.UserAdapter
 import razerdp.basepopup.BasePopupWindow
 import java.util.ArrayList
 
@@ -38,7 +36,7 @@ class SendRedpackPop(context: Context):BasePopupWindow(context)  {
     var fingerScissorsRb:RadioButton?=null
 
     var userList = mutableListOf<User>()
-    var userAdapter:UserAdapter?=null
+    var userAdapter: UserAdapter?=null
     var gson = Gson()
 
     init {

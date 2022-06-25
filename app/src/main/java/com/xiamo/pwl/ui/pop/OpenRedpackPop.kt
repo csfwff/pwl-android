@@ -1,4 +1,4 @@
-package com.xiamo.pwl.ui
+package com.xiamo.pwl.ui.pop
 
 import android.content.Context
 import android.widget.ImageView
@@ -11,6 +11,7 @@ import com.xiamo.pwl.R
 import com.xiamo.pwl.bean.OpenRedpack
 import com.xiamo.pwl.bean.Who
 import com.xiamo.pwl.common.USERNAME
+import com.xiamo.pwl.ui.adapter.RedpackUserAdapter
 import com.xiamo.pwl.util.HeadImgUtils
 import razerdp.basepopup.BasePopupWindow
 
@@ -23,7 +24,7 @@ class OpenRedpackPop(context: Context): BasePopupWindow(context) {
     var info1Tv:TextView?=null
     var userRecy:RecyclerView?=null
     var bgLl:LinearLayout?=null
-    var userAdapter:RedpackUserAdapter?=null
+    var userAdapter: RedpackUserAdapter?=null
 
 
     init {
