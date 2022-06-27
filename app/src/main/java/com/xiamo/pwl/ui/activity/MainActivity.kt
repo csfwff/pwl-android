@@ -27,6 +27,8 @@ import co.zsmb.materialdrawerkt.builders.drawer
 import com.ayvytr.ktx.context.toast
 import com.ayvytr.ktx.ui.isVisible
 import com.ayvytr.ktx.ui.onClick
+import com.bumptech.glide.Glide
+import com.google.android.flexbox.FlexboxLayout
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.gyf.immersionbar.ktx.immersionBar
@@ -482,6 +484,13 @@ class MainActivity : BaseActivity() {
             HeadImgUtils.loadHead(bgImg, it.cardBg)
             (headView.findViewById(R.id.userNameTv) as TextView).text = it.userNickname
             (headView.findViewById(R.id.userIdTv) as TextView).text = it.userName
+            (headView.findViewById(R.id.userIntroTv) as TextView).text = it.userIntro
+            (headView.findViewById(R.id.userNoTv) as TextView).text = "No.${it.userNo}"
+            (headView.findViewById(R.id.locateTv) as TextView).text = it.userCity
+            (headView.findViewById(R.id.coinTv) as TextView).text = it.userPoint.toString()
+            Glide.with(this).load(UserInfoUtils.getUserRoleImg(it.userRole)).into( (headView.findViewById(R.id.userRoleImg) as ImageView))
+            var flexBox = headView.findViewById(R.id.medalFl) as FlexboxLayout
+
         }, { result ->
             toast(result)
         })

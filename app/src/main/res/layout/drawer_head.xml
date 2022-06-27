@@ -19,18 +19,32 @@
             android:orientation="horizontal"
             android:padding="@dimen/_8dp"
             android:layout_height="wrap_content">
-            <androidx.cardview.widget.CardView
-                android:layout_width="@dimen/_64dp"
-                app:cardElevation="0dp"
-                app:cardCornerRadius="@dimen/_32dp"
-                android:layout_height="@dimen/_64dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="@dimen/_64dp"
+                    app:cardElevation="0dp"
+                    app:cardCornerRadius="@dimen/_32dp"
+                    android:layout_height="@dimen/_64dp">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:id="@+id/headImg"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/main_bg_2"
+                        android:layout_height="match_parent"/>
+                </androidx.cardview.widget.CardView>
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:id="@+id/headImg"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/main_bg_2"
-                    android:layout_height="match_parent"/>
-            </androidx.cardview.widget.CardView>
+                    android:layout_width="wrap_content"
+                    android:id="@+id/userRoleImg"
+                    android:layout_gravity="center_horizontal"
+                    android:adjustViewBounds="true"
+                    android:layout_marginTop="4dp"
+                    android:layout_height="20dp"/>
+
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
@@ -54,15 +68,70 @@
                         android:id="@+id/userIdTv"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:id="@+id/userRoleImg"
-                    android:layout_marginTop="@dimen/_4dp"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    android:id="@+id/userIntroTv"
                     android:layout_height="wrap_content"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="@dimen/_4dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/white"
+                        android:id="@+id/userNoTv"
+                        android:paddingHorizontal="4dp"
+                        android:background="@drawable/bg_topic"
+                        android:layout_height="wrap_content"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:id="@+id/locateLl"
+                        android:layout_marginLeft="4dp"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:src="@mipmap/locate"
+                            android:adjustViewBounds="true"
+                            android:layout_height="20dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:id="@+id/locateTv"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="4dp"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:src="@mipmap/coin"
+                            android:adjustViewBounds="true"
+                            android:layout_height="20dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:id="@+id/coinTv"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
+
             </LinearLayout>
 
 
         </LinearLayout>
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:id="@+id/medalFl"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
 
