@@ -102,6 +102,13 @@
             android:layout_height="wrap_content"/>
 
     </FrameLayout>
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:layout_width="match_parent"
+        android:progress="0"
+        app:trackColor="@color/white"
+        android:id="@+id/progress"
+        app:indicatorColor="@color/bottom_red"
+        android:layout_height="wrap_content"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"

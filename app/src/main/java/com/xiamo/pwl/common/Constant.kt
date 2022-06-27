@@ -20,6 +20,7 @@ const val URL_GET_CODE_IMG = "/captcha"
 const val URL_GET_SMS_CODE = "/register"
 const val URL_VERIFY_SMS_CODE = "/verify"
 const val URL_FINISH_REGISTER = "/register2"
+const val URL_GET_LIVENESS = "/user/liveness"
 
 val MSG_TYPE_DEFAULT = 0
 val MSG_TYPE_MSG = 1

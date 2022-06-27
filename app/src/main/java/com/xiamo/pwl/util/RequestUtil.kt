@@ -510,5 +510,33 @@ class RequestUtil private constructor() {
             })
     }
 
+    fun getLiveness(
+        context: Context,
+        callback: ((Double) -> Unit)? = null,
+        errCallback: ((String) -> Unit)? = null
+    ){
+        OkGo.get<String>("$BASE_URL$URL_GET_LIVENESS?apiKey=$API_KEY")
+            .execute(object : StringCallback() {
+                override fun onSuccess(response: Response<String>?) {
+                    try {
+                        var liveness = gson.fromJson(response?.body(), Liveness::class.java)
+                        if(liveness.liveness!=null){
+                            callback?.invoke(liveness.liveness!!)
+                        }else{
+                            errCallback?.invoke("")
+                        }
+                    }catch (e:Exception){
+                        errCallback?.invoke("")
+                    }
+
+                }
+
+                override fun onError(response: Response<String>?) {
+                    super.onError(response)
+                    errCallback?.invoke(context.getString(R.string.toast_net_err))
+                }
+            })
+    }
+
 
 }

@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -17,6 +18,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -85,6 +87,9 @@ class MainActivity : BaseActivity() {
     var bigImagePop: BigImagePop?=null
     var delMemePop: DelMemePop?=null
 
+    val mHandler: Handler = Handler { false }  //时间
+    var livenessRunnable = LivenessRunnable()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -152,6 +157,8 @@ class MainActivity : BaseActivity() {
         getUserInfo()
         getUserMeme()
         getHistoryMsgOld()
+
+        mHandler.postDelayed(livenessRunnable, 0)
 
 
     }
@@ -664,6 +671,10 @@ class MainActivity : BaseActivity() {
         EventBus.getDefault().unregister(this)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mHandler.removeCallbacks(livenessRunnable)
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: PwlEvent) {
@@ -677,6 +688,23 @@ class MainActivity : BaseActivity() {
                 }
                 bigImagePop?.showImage(event.info)
             }
+        }
+    }
+
+
+    inner class LivenessRunnable:Runnable{
+        override fun run() {
+            //获取活跃
+            RequestUtil.getInstance().getLiveness(this@MainActivity,{
+                progress.progress = it.toInt()
+                if(it<100){
+                    mHandler.postDelayed(this, 60000)
+                }
+                progress.setIndicatorColor(ContextCompat.getColor(this@MainActivity,if(it<10) R.color.blue_discuss else R.color.bottom_red) )
+            },{
+                toast(it)
+            })
+
         }
     }
 
