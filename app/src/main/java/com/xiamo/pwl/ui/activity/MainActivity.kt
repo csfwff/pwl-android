@@ -108,6 +108,7 @@ class MainActivity : BaseActivity() {
         }
 
         drawer?.apply {
+            itemAdapter.add(PrimaryDrawerItem().withName(R.string.drawer_moon))
             itemAdapter.add(PrimaryDrawerItem().withName(R.string.drawer_set))
             itemAdapter.add(PrimaryDrawerItem().withName(R.string.drawer_logout))
         }
@@ -119,7 +120,10 @@ class MainActivity : BaseActivity() {
                 drawerItem: IDrawerItem<*>
             ): Boolean {
                 when(position){
-                    2->{  //退出登录
+                    1->{
+                        startActivity(Intent(this@MainActivity,MoonActivity::class.java))
+                    }
+                    3->{  //退出登录
                         val preferences by lazy { SharedPreferencesUtils(this@MainActivity) }
                         preferences.apiKey=""
                         val intent = Intent(this@MainActivity, LoginActivity::class.java)
@@ -127,7 +131,7 @@ class MainActivity : BaseActivity() {
                         this@MainActivity.startActivity(intent)
                     }
                 }
-                return true
+                return false
             }
 
         }

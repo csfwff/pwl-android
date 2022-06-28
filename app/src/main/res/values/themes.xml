@@ -29,4 +29,10 @@
         <item name="colorSecondary">@color/msg_redpack</item>
     </style>
 
+    <style name="PwlNormal" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorPrimaryDark">@color/main_status</item>
+        <item name="colorPrimary">@color/main_status</item>
+        <item name="colorSecondary">@color/msg_redpack</item>
+    </style>
+
 </resources>

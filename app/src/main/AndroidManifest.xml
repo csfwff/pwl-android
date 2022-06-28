@@ -13,9 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PWL">
         <activity
-            android:name=".ui.activity.UserInfoActivity"
-            android:theme="@style/UserInfo"
+            android:name=".ui.activity.MoonActivity"
+            android:theme="@style/PwlNormal"
             android:exported="true" />
+        <activity
+            android:name=".ui.activity.UserInfoActivity"
+            android:exported="true"
+            android:theme="@style/UserInfo" />
         <activity
             android:name=".ui.activity.Register2Activity"
             android:exported="true" />

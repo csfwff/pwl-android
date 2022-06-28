@@ -85,8 +85,11 @@
     <string name="redpack_type_gesture">猜拳红包</string>
     <string name="redpack_type_default">神奇红包</string>
 
+    <string name="drawer_moon">清风明月</string>
     <string name="drawer_set">设置</string>
     <string name="drawer_logout">退出登录</string>
+
+    <string name="menu_send">发送</string>
 
     <string name="cha">×</string>
 
