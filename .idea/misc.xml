@@ -21,6 +21,7 @@
         <entry key="..\:/github/pwl/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/activity_register.xml" value="0.18811881188118812" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/activity_register2.xml" value="0.1" />
+        <entry key="..\:/github/pwl/app/src/main/res/layout/activity_user_info.xml" value="0.25" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/drawer_head.xml" value="0.2760416666666667" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/item_emoji.xml" value="0.26979166666666665" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/item_head.xml" value="0.36614583333333334" />
@@ -32,6 +33,7 @@
         <entry key="..\:/github/pwl/app/src/main/res/layout/item_open_redpack.xml" value="0.36614583333333334" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/item_redpack_danmu.xml" value="0.36614583333333334" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/item_user.xml" value="0.9" />
+        <entry key="..\:/github/pwl/app/src/main/res/layout/item_user_medal.xml" value="0.36614583333333334" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/item_user_meme.xml" value="0.36614583333333334" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/pop_del_meme.xml" value="0.36614583333333334" />
         <entry key="..\:/github/pwl/app/src/main/res/layout/pop_edit_topic.xml" value="0.36614583333333334" />

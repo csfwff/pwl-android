@@ -23,4 +23,10 @@
         <item name="colorPrimaryDark">@color/main_status</item>
     </style>
 
+    <style name="UserInfo" parent="Theme.PWL">
+        <item name="colorPrimaryDark">@color/main_status</item>
+        <item name="colorPrimary">@color/main_bar</item>
+        <item name="colorSecondary">@color/msg_redpack</item>
+    </style>
+
 </resources>

@@ -279,6 +279,7 @@ class MainActivity : BaseActivity() {
                 if(it){
                     emojiRv.visibility = View.GONE
                     memeRv.visibility = View.GONE
+                    msgRv.scrollToPosition(msgList.size - 1)
                 }
             })
     }
@@ -314,7 +315,8 @@ class MainActivity : BaseActivity() {
             R.id.redpackLl,
             R.id.finger0Tv,
             R.id.finger1Tv,
-            R.id.finger2Tv
+            R.id.finger2Tv,
+            R.id.headImg
         )
 
         chatMsgAdapter?.setOnItemChildClickListener { adapter, view, position ->
@@ -331,6 +333,11 @@ class MainActivity : BaseActivity() {
                 }
                 R.id.finger2Tv -> {
                     openRedpack(msg.oId.toString(), 2)
+                }
+                R.id.headImg->{
+                    var intent = Intent(this,UserInfoActivity::class.java)
+                    intent.putExtra("username",msg.userName)
+                    startActivity(intent)
                 }
             }
         }
@@ -484,6 +491,11 @@ class MainActivity : BaseActivity() {
         RequestUtil.getInstance().getUserInfo(this, USERNAME, {
             val headView = drawer?.header
             val headImg = headView?.findViewById(R.id.headImg) as ImageView
+            headImg.onClick {
+                var intent = Intent(this,UserInfoActivity::class.java)
+                intent.putExtra("username", USERNAME)
+                startActivity(intent)
+            }
             HeadImgUtils.loadHead(headImg, it.userAvatarURL)
             val bgImg =  headView.findViewById(R.id.bgImg) as ImageView
             HeadImgUtils.loadHead(bgImg, it.cardBg)
@@ -508,12 +520,8 @@ class MainActivity : BaseActivity() {
                 view.layoutParams = params
                 Glide.with(this).load(url).into(view.findViewById(R.id.medalImg))
                 flexBox.addView(view)
-                Log.e("---ok",url)
-
-
             }
         }, { result ->
-            Log.e("-----ok",result)
             toast(result)
         })
     }

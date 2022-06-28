@@ -13,6 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PWL">
         <activity
+            android:name=".ui.activity.UserInfoActivity"
+            android:theme="@style/UserInfo"
+            android:exported="true" />
+        <activity
             android:name=".ui.activity.Register2Activity"
             android:exported="true" />
         <activity
