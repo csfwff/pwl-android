@@ -23,18 +23,29 @@
                 android:layout_width="wrap_content"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
-                <androidx.cardview.widget.CardView
-                    android:layout_width="@dimen/_64dp"
-                    app:cardElevation="0dp"
-                    app:cardCornerRadius="@dimen/_32dp"
-                    android:layout_height="@dimen/_64dp">
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="@dimen/_64dp"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="@dimen/_32dp"
+                        android:layout_height="@dimen/_64dp">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:id="@+id/headImg"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/main_bg_2"
+                            android:layout_height="match_parent"/>
+                    </androidx.cardview.widget.CardView>
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:id="@+id/headImg"
-                        android:scaleType="centerCrop"
-                        android:src="@mipmap/main_bg_2"
-                        android:layout_height="match_parent"/>
-                </androidx.cardview.widget.CardView>
+                        android:layout_width="20dp"
+                        android:id="@+id/appRoleImg"
+                        android:layout_gravity="end|bottom"
+                        android:src="@mipmap/role_hacker"
+                        android:layout_height="20dp"/>
+                </FrameLayout>
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:id="@+id/userRoleImg"
@@ -123,15 +134,18 @@
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
                 </LinearLayout>
-
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/medalFl"
+                    app:flexWrap="wrap"
+                    app:alignItems="stretch"
+                    app:alignContent="stretch"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
 
         </LinearLayout>
-        <com.google.android.flexbox.FlexboxLayout
-            android:layout_width="match_parent"
-            android:id="@+id/medalFl"
-            android:layout_height="wrap_content"/>
+
     </LinearLayout>
 
 

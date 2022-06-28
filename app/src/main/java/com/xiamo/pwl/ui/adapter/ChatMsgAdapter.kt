@@ -63,10 +63,10 @@ class ChatMsgAdapter(msgList: MutableList<ChatMessage>): BaseMultiItemQuickAdapt
            MSG_TYPE_REDPACK,MSG_TYPE_REDPACK_MINE->{
                setUserInfo(holder,item)
                var redPackMsg = item.redPackMsg
-               holder.setText(R.id.redpackContentTv,if(redPackMsg!!.msg.isNullOrBlank()) context.getString(getRedpackDefaultMsg(redPackMsg.type)) else redPackMsg.msg)
-               holder.setText(R.id.redpackTypeTv,getRedpackType(redPackMsg.type))
+               holder.setText(R.id.redpackContentTv,if(redPackMsg?.msg.isNullOrBlank()) context.getString(getRedpackDefaultMsg(redPackMsg?.type)) else redPackMsg?.msg)
+               holder.setText(R.id.redpackTypeTv,getRedpackType(redPackMsg?.type))
                if(holder.itemViewType==MSG_TYPE_REDPACK){
-                   holder.setVisible(R.id.fingerLl,redPackMsg.type=="rockPaperScissors")
+                   holder.setVisible(R.id.fingerLl,redPackMsg?.type=="rockPaperScissors")
                }
            }
        }

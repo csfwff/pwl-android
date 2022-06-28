@@ -13,13 +13,17 @@ import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.view.setPadding
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -45,6 +49,7 @@ import com.xiamo.pwl.ui.*
 import com.xiamo.pwl.ui.adapter.*
 import com.xiamo.pwl.ui.pop.*
 import com.xiamo.pwl.util.*
+import de.hdodenhof.circleimageview.CircleImageView
 
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -489,9 +494,26 @@ class MainActivity : BaseActivity() {
             (headView.findViewById(R.id.locateTv) as TextView).text = it.userCity
             (headView.findViewById(R.id.coinTv) as TextView).text = it.userPoint.toString()
             Glide.with(this).load(UserInfoUtils.getUserRoleImg(it.userRole)).into( (headView.findViewById(R.id.userRoleImg) as ImageView))
+            Glide.with(this).load(if(it.userAppRole=="0")R.mipmap.role_hacker else R.mipmap.role_painter).into( (headView.findViewById(R.id.appRoleImg) as ImageView))
             var flexBox = headView.findViewById(R.id.medalFl) as FlexboxLayout
+            var medal = gson.fromJson(it.sysMetal,Medal::class.java)
+            var medalList = medal.list
+            medalList?.forEach { item->
+                var attrs = item.attr!!.split("&")
+                var url = attrs[0].split("=")[1]
+                var view = LayoutInflater.from(this).inflate(R.layout.item_medal,null)
+                var params = FlexboxLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT)
+                view.layoutParams = params
+                Glide.with(this).load(url).into(view.findViewById(R.id.medalImg))
+                flexBox.addView(view)
+                Log.e("---ok",url)
 
+
+            }
         }, { result ->
+            Log.e("-----ok",result)
             toast(result)
         })
     }
