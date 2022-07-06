@@ -3,6 +3,7 @@ package com.xiamo.pwl.common
 val BASE_URL = "https://fishpi.cn"
 //val BASE_URL = "http://192.168.10.135:8080"
 val BASE_WSS_URL = "wss://fishpi.cn"
+val BASE_FILE_URL = "https://file.fishpi.cn"
 var API_KEY = ""
 var USERNAME = ""
 
