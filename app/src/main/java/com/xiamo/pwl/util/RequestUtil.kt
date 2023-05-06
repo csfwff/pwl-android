@@ -3,12 +3,14 @@ package com.xiamo.pwl.util
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import com.ayvytr.ktx.context.toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.callback.StringCallback
 import com.lzy.okgo.model.Response
+import com.xiamo.pwl.BuildConfig
 import com.xiamo.pwl.R
 import com.xiamo.pwl.bean.*
 import com.xiamo.pwl.common.*
@@ -86,6 +88,7 @@ class RequestUtil private constructor() {
     ) {
         var params = HashMap<String, String>()
         params["apiKey"] = API_KEY
+        params["client"] = "Android/${BuildConfig.VERSION_NAME}"
         params["content"] = content
         OkGo.post<String>(BASE_URL + URL_SEND_MSG)
             .upJson(gson.toJson(params))
