@@ -38,8 +38,8 @@ class RequestUtil private constructor() {
     }
 
 
-    fun toLogin(context: Context) {
-        context.toast(R.string.toast_unauth)
+    fun toLogin(context: Context,url:String) {
+        context.toast(context.getString(R.string.toast_unauth)+url)
         val preferences by lazy { SharedPreferencesUtils(context) }
         preferences.apiKey = ""
         val intent = Intent(context, LoginActivity::class.java)
@@ -101,7 +101,7 @@ class RequestUtil private constructor() {
                         }
                         baseBean.msg == "401" -> {
                             //回到登录页
-                            toLogin(context)
+                            toLogin(context,URL_SEND_MSG)
                         }
                         else -> {
                             errCallback?.invoke(baseBean.msg + "")
@@ -200,7 +200,7 @@ class RequestUtil private constructor() {
                             }
                             userMeme.msg == "401" -> {
                                 //回到登录页
-                                toLogin(context)
+                                toLogin(context,URL_GET_USER_CLOUD)
                             }
                             else -> {
                                 errCallback?.invoke(userMeme.msg + "")
@@ -282,7 +282,7 @@ class RequestUtil private constructor() {
                             callback?.invoke()
                         }
                         baseBean.msg == "401" -> {
-                            toLogin(context)
+                            toLogin(context,URL_SYNC_USER_CLOUD)
                         }
                         else -> {
                             errCallback?.invoke(baseBean.msg.toString())
@@ -342,7 +342,7 @@ class RequestUtil private constructor() {
                             callback?.invoke(list)
                         }
                         baseBean.msg == "401" -> {
-                            toLogin(context)
+                            toLogin(context,URL_GET_HISTORY_MSG)
                         }
                         else -> {
                             errCallback?.invoke(baseBean.msg.toString())
@@ -402,7 +402,7 @@ class RequestUtil private constructor() {
                             callback?.invoke(list)
                         }
                         baseBean.msg == "401" -> {
-                            toLogin(context)
+                            toLogin(context,URL_GET_HISTORY_MSG_OLD)
                         }
                         else -> {
                             errCallback?.invoke(baseBean.msg.toString())
